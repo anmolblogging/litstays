@@ -1,6 +1,4 @@
-import Image from 'next/image';
 import { faqs, type FAQItem } from '@/lib/faqs';
-import { FAQMore } from './FAQMore';
 
 function Question({ item, index }: { item: FAQItem; index: number }) {
   return <details name="lit-stays-faq" className="lit-faq-item">
@@ -14,15 +12,18 @@ function Question({ item, index }: { item: FAQItem; index: number }) {
 }
 
 export function FAQSection() {
+  // Split evenly: first half on the left, second half on the right (11 + 11).
+  const half = Math.ceil(faqs.length / 2);
   return <section id="faq" className="lit-faq-section lit-faq" aria-labelledby="faq-heading">
     <div className="lit-faq-intro">
-      <p className="lit-faq-kicker">A little more to know</p>
-      <div className="lit-faq-title-row"><h2 id="faq-heading"><span className="faq-heading-line">Frequently asked</span>{' '}<span className="faq-questions-line">questions.<Image className="lit-faq-title-icon" src="/images/faq-villa.webp" alt="" aria-hidden="true" width={600} height={400} loading="lazy" unoptimized/></span></h2></div>
-      <p className="lit-faq-description">Everything you need to know before making yourself at home.</p>
+      <div className="lit-faq-title-row"><h2 id="faq-heading"><span className="faq-heading-line">Frequently Asked</span>{' '}<span className="faq-questions-line">Questions</span></h2></div>
+      <p className="lit-faq-subheading">Everything you need to know before making yourself at home</p>
     </div>
-    <div className="lit-faq-items">
-      {faqs.slice(0, 4).map((item, index) => <Question key={item.question} item={item} index={index}/>)}
-      <FAQMore>{faqs.slice(4).map((item, index) => <Question key={item.question} item={item} index={index + 4}/>)}</FAQMore>
+    <div className="lit-faq-items lit-faq-column lit-faq-column-left">
+      {faqs.slice(0, half).map((item, index) => <Question key={item.question} item={item} index={index}/>)}
+    </div>
+    <div className="lit-faq-items lit-faq-column lit-faq-column-right">
+      {faqs.slice(half).map((item, index) => <Question key={item.question} item={item} index={index + half}/>)}
     </div>
   </section>;
 }

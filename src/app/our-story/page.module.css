@@ -2,19 +2,19 @@
 .page > section { scroll-margin-top: 12px; }
 .about { padding-block: 140px 80px; }
 .sectionTop, .staffTop { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.sectionLabel { display: flex; align-items: center; gap: 14px; font-size: 13px; line-height: 1.5; }
-.sectionLabel > span { color: var(--sage); font-size: 10px; }
-.pageNavigation { display: flex; gap: 28px; font-size: 12px; line-height: 1.6; color: var(--muted); }
+.sectionLabel { display: flex; align-items: center; gap: 14px; font-size: 15px; line-height: 1.5; }
+.sectionLabel > span { color: var(--sage); font-size: 13px; }
+.pageNavigation { display: flex; gap: 28px; font-size: 15px; line-height: 1.6; color: var(--muted); }
 .pageNavigation > a { padding-block: 10px; }
 .pageNavigation > a:hover { color: var(--ink); }
-.eyebrow { font-size: 9px; line-height: 1.8; letter-spacing: .12em; }
+.eyebrow { font-size: 12px; line-height: 1.8; letter-spacing: .12em; }
 .hero { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); align-items: center; gap: 7%; margin-top: 30px; }
 .heroCopy { padding-block: 28px; }
 .heroCopy > .eyebrow { color: var(--muted); }
 .heroCopy h1 { margin-top: 25px; font-size: clamp(76px, 7.8vw, 120px); line-height: .94; letter-spacing: -.05em; }
 .heroCopy h1 > em { color: var(--forest); }
-.introduction { max-width: 34ch; margin-top: 30px; color: var(--muted); font-size: 17px; line-height: 1.85; }
-.button { display: inline-flex; align-items: center; justify-content: space-between; gap: 32px; min-height: 50px; margin-top: 28px; padding: 15px 21px; border-radius: 999px; background: var(--forest); color: var(--ivory); font-size: 12px; line-height: 1.5; }
+.introduction { max-width: 34ch; margin-top: 30px; color: var(--muted); font-size: 18px; line-height: 1.85; }
+.button { display: inline-flex; align-items: center; justify-content: space-between; gap: 32px; min-height: 50px; margin-top: 28px; padding: 15px 21px; border-radius: 999px; background: var(--forest); color: var(--ivory); font-size: 15px; line-height: 1.5; }
 .button > svg { width: 18px; height: 18px; flex-shrink: 0; }
 .brandNote { display: flex; align-items: center; gap: 16px; margin-top: 42px; }
 .brandNote > svg { width: 35px; height: 45px; color: var(--sage); flex-shrink: 0; }
@@ -22,15 +22,15 @@
 .heroVisual { position: relative; min-width: 0; height: 615px; }
 .heroMainPhoto { position: absolute; inset: 0 0 50px 40px; overflow: hidden; border-radius: 250px 250px 20px 20px; background: var(--sand); }
 .heroMainPhoto > img { object-fit: cover; object-position: 56% center; }
-.heroMainPhoto > span { position: absolute; bottom: 24px; right: 22px; padding: 8px 12px; border-radius: 999px; background: var(--ivory); color: var(--ink); font-size: 8px; line-height: 1.6; letter-spacing: .08em; }
+.heroMainPhoto > span { position: absolute; bottom: 24px; right: 22px; padding: 8px 12px; border-radius: 999px; background: var(--ivory); color: var(--ink); font-size: 12px; line-height: 1.6; letter-spacing: .08em; }
 .heroInset { position: absolute; bottom: 0; left: -30px; width: 47%; padding: 9px 9px 0; border-radius: 20px; background: var(--ivory); }
 .heroInset > div { position: relative; height: 210px; overflow: hidden; border-radius: 14px; background: var(--sand); }
 .heroInset img { object-fit: cover; }
-.heroInset > figcaption { padding: 10px 4px 0; font: 400 18px/1.2 var(--font-serif), Georgia, serif; }
+.heroInset > figcaption { padding: 10px 4px 0; font: 400 19px/1.2 var(--font-serif), Georgia, serif; }
 .aboutStory { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 10%; align-items: start; margin-top: 65px; }
 .aboutStory h2 { font-size: clamp(44px, 4.3vw, 65px); line-height: 1.02; letter-spacing: -.035em; }
 .aboutStory > div { padding-top: 3px; }
-.aboutStory p { max-width: 52ch; color: var(--muted); font-size: 17px; line-height: 1.9; }
+.aboutStory p { max-width: 52ch; color: var(--muted); font-size: 18px; line-height: 1.9; }
 .aboutStory p + p { margin-top: 18px; }
 .owner { padding-block: 55px 65px; background: var(--sand); }
 .ownerGrid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; gap: 10%; margin-top: 35px; }
@@ -39,11 +39,11 @@
 .ownerIdentity > span { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; background: var(--forest); color: var(--ivory); font: 400 30px/1 var(--font-serif), Georgia, serif; letter-spacing: -.05em; }
 .ownerIdentity > p { color: var(--muted); }
 .ownerCopy h2 { max-width: 10ch; margin-top: 26px; font-size: clamp(64px, 6.3vw, 94px); line-height: .94; letter-spacing: -.045em; }
-.ownerRole { margin-top: 20px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.ownerRole { margin-top: 20px; color: var(--muted); font-size: 15px; line-height: 1.6; }
 .ownerRole > span { padding-inline: 8px; }
-.ownerDescription { max-width: 43ch; margin-top: 26px; color: var(--muted); font-size: 16px; line-height: 1.9; }
+.ownerDescription { max-width: 43ch; margin-top: 26px; color: var(--muted); font-size: 18px; line-height: 1.9; }
 .ownerNote { margin-top: 26px; font: 400 clamp(27px, 2.5vw, 37px)/1.15 var(--font-serif), Georgia, serif; letter-spacing: -.02em; }
-.textLink { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 44px; margin-top: 20px; font-size: 12px; line-height: 1.5; }
+.textLink { display: inline-flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 44px; margin-top: 20px; font-size: 15px; line-height: 1.5; }
 .textLink > svg { width: 18px; height: 18px; flex-shrink: 0; }
 .ownerVisual { min-width: 0; }
 .ownerPhoto { position: relative; height: 490px; overflow: hidden; border-radius: 22px; background: var(--sage); }
@@ -53,21 +53,21 @@
 .staff .sectionLabel > span, .staffTop > .eyebrow { color: var(--sand); }
 .staffHeading { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); align-items: end; gap: 13%; margin-top: 38px; }
 .staffHeading h2 { font-size: clamp(57px, 5.5vw, 82px); line-height: .98; letter-spacing: -.035em; }
-.staffHeading > p { max-width: 37ch; padding-bottom: 4px; color: var(--sand); font-size: 16px; line-height: 1.9; }
+.staffHeading > p { max-width: 37ch; padding-bottom: 4px; color: var(--sand); font-size: 18px; line-height: 1.9; }
 .teamCards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin: 45px 0 0; padding: 0; list-style: none; }
 .teamCards > li { min-width: 0; }
 .teamPhoto { position: relative; aspect-ratio: 1.35; overflow: hidden; border-radius: 18px; background: var(--sage); }
 .teamPhoto > img { object-fit: cover; }
 .teamCardCopy { display: flex; align-items: flex-start; gap: 16px; margin-top: 22px; }
-.valueNumber { flex-shrink: 0; padding-top: 7px; color: var(--sand); font-size: 9px; line-height: 1.6; }
+.valueNumber { flex-shrink: 0; padding-top: 7px; color: var(--sand); font-size: 12px; line-height: 1.6; }
 .teamCardCopy h3 { font-size: clamp(26px, 2.5vw, 36px); line-height: 1.08; letter-spacing: -.025em; }
-.teamCardCopy p { max-width: 36ch; margin-top: 12px; color: var(--sand); font-size: 14px; line-height: 1.9; }
+.teamCardCopy p { max-width: 36ch; margin-top: 12px; color: var(--sand); font-size: 16px; line-height: 1.9; }
 .collection { display: flex; justify-content: space-between; align-items: center; gap: 40px; margin-top: 65px; padding: 30px 34px; border-radius: 20px; background: var(--ivory); color: var(--ink); }
-.collection .eyebrow { margin-bottom: 10px; color: var(--muted); font-size: 8px; }
+.collection .eyebrow { margin-bottom: 10px; color: var(--muted); font-size: 12px; }
 .collection h3 { font-size: 40px; line-height: 1.1; letter-spacing: -.025em; }
 .collection h3 > em { display: block; }
 .collection > nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 16px 28px; }
-.collection a { display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; font-size: 13px; line-height: 1.5; }
+.collection a { display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; font-size: 15px; line-height: 1.5; }
 .collection a > svg { width: 17px; height: 17px; flex-shrink: 0; }
 @media (max-width: 1100px) {
   .hero { gap: 5%; }
@@ -76,7 +76,7 @@
   .heroMainPhoto { left: 20px; }
   .heroInset { left: -15px; width: 52%; }
   .heroInset > div { height: 180px; }
-  .introduction { font-size: 16px; }
+  .introduction { font-size: 18px; }
   .ownerGrid { gap: 7%; }
   .ownerPhoto { height: 450px; }
   .ownerCopy h2 { font-size: 72px; }
@@ -91,7 +91,7 @@
 @media (max-width: 760px) {
   .about { padding-block: 120px 50px; }
   .sectionTop { flex-wrap: wrap; gap: 15px; }
-  .pageNavigation { gap: 22px; font-size: 11px; }
+  .pageNavigation { gap: 22px; font-size: 14px; }
   .hero { grid-template-columns: 1fr; gap: 32px; margin-top: 25px; }
   .heroCopy { padding: 0; }
   .heroCopy h1 { font-size: clamp(68px, 12vw, 100px); margin-top: 22px; }
@@ -104,7 +104,7 @@
   .heroInset > div { height: 200px; }
   .aboutStory { grid-template-columns: 1fr; gap: 25px; margin-top: 42px; }
   .aboutStory h2 { font-size: 54px; }
-  .aboutStory p { max-width: 55ch; font-size: 16px; }
+  .aboutStory p { max-width: 55ch; font-size: 18px; }
   .owner { padding-block: 40px 50px; }
   .ownerGrid { grid-template-columns: 1fr; gap: 35px; margin-top: 28px; }
   .ownerCopy h2 { max-width: 11ch; font-size: 76px; }
@@ -114,7 +114,7 @@
   .ownerVisual > p { font-size: 25px; }
   .staff { padding-block: 45px; }
   .staffTop { align-items: flex-start; gap: 24px; }
-  .staffTop > .eyebrow { max-width: 15ch; text-align: right; font-size: 8px; }
+  .staffTop > .eyebrow { max-width: 15ch; text-align: right; font-size: 12px; }
   .staffHeading { grid-template-columns: 1fr; gap: 25px; margin-top: 30px; }
   .staffHeading h2 { font-size: 65px; }
   .staffHeading > p { max-width: 51ch; }
@@ -130,21 +130,21 @@
 @media (max-width: 480px) {
   .about { padding-top: 110px; }
   .sectionTop { align-items: flex-start; flex-direction: column; gap: 14px; }
-  .sectionLabel { font-size: 12px; gap: 12px; }
+  .sectionLabel { font-size: 15px; gap: 12px; }
   .hero { margin-top: 22px; }
   .heroCopy h1 { font-size: clamp(61px, 15.5vw, 76px); }
-  .eyebrow { font-size: 8px; }
+  .eyebrow { font-size: 12px; }
   .brandNote > p { font-size: 22px; }
   .heroVisual { height: 420px; }
   .heroMainPhoto { inset: 0 0 35px 22px; border-radius: 180px 180px 18px 18px; }
-  .heroMainPhoto > span { bottom: 18px; right: 16px; font-size: 7px; padding: 7px 10px; }
+  .heroMainPhoto > span { bottom: 18px; right: 16px; font-size: 11px; padding: 7px 10px; }
   .heroInset { width: 52%; padding: 7px 7px 0; border-radius: 16px; }
   .heroInset > div { height: 140px; border-radius: 10px; }
-  .heroInset > figcaption { font-size: 15px; }
+  .heroInset > figcaption { font-size: 17px; }
   .aboutStory h2 { font-size: 47px; }
   .ownerIdentity > span { width: 54px; height: 54px; font-size: 28px; }
   .ownerCopy h2 { font-size: clamp(58px, 15.5vw, 74px); margin-top: 24px; }
-  .ownerRole { font-size: 12px; }
+  .ownerRole { font-size: 15px; }
   .ownerDescription { margin-top: 22px; }
   .ownerNote { font-size: 29px; }
   .ownerPhoto { height: 360px; border-radius: 18px; }
@@ -154,7 +154,7 @@
   .teamPhoto { aspect-ratio: 1.3; border-radius: 16px; }
   .teamCardCopy { margin-top: 20px; gap: 15px; }
   .teamCardCopy h3 { font-size: 33px; }
-  .teamCardCopy p { font-size: 15px; }
+  .teamCardCopy p { font-size: 17px; }
   .collection { padding: 24px 22px; border-radius: 16px; }
   .collection h3 { font-size: 35px; }
   .collection > nav { flex-direction: column; gap: 5px; }

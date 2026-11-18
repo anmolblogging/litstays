@@ -35,7 +35,6 @@ export default function OurStoryPage() {
         </div>
         <div className={styles.hero}>
           <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>OUR STORY, YOUR LITTLE ESCAPE</p>
             <h1>A place for<br/> <em>your people.</em></h1>
             <p className={styles.introduction}>{ourStory.introduction}</p>
             <a href="#owner" className={styles.button}>Meet the people <Arrow diagonal /></a>
@@ -62,7 +61,7 @@ export default function OurStoryPage() {
         <p className={styles.sectionLabel}><span>02</span> Owner</p>
         <div className={styles.ownerGrid}>
           <div className={styles.ownerCopy}>
-            <div className={styles.ownerIdentity}><span role="img" aria-label={`Brand monogram for ${ourStory.founder.name}`}>{ourStory.founder.initials}</span><p className={styles.eyebrow}>THE PERSON<br/>BEHIND THE PLACE</p></div>
+            <div className={styles.ownerIdentity}><span role="img" aria-label={`Brand monogram for ${ourStory.founder.name}`}>{ourStory.founder.initials}</span></div>
             <h2>{ourStory.founder.name}</h2>
             <p className={styles.ownerRole}>{ourStory.founder.role} <span aria-hidden="true">·</span> The LIT Stays</p>
             <p className={styles.ownerDescription}>{ourStory.founder.description}</p>
@@ -77,7 +76,7 @@ export default function OurStoryPage() {
       </section>
 
       <section id="staff" className={`${styles.staff} section-padding`} aria-label="Staff">
-        <div className={styles.staffTop}><p className={styles.sectionLabel}><span>03</span> Staff</p><span className={styles.eyebrow}>THE CARE BEHIND YOUR STAY</span></div>
+        <div className={styles.staffTop}><p className={styles.sectionLabel}><span>03</span> Staff</p></div>
         <div className={styles.staffHeading}>
           <h2>Good people.<br/><em>Thoughtful stays.</em></h2>
           <p>{ourStory.staff.introduction}</p>
@@ -87,7 +86,7 @@ export default function OurStoryPage() {
           <div className={styles.teamCardCopy}><span className={styles.valueNumber} aria-hidden="true">0{index + 1}</span><div><h3>{value.title}</h3><p>{value.description}</p></div></div>
         </li>)}</ul>
         <div className={styles.collection}>
-          <div><p className={styles.eyebrow}>COME MAKE YOURSELF AT HOME</p><h3 id="collection-heading">Find your <em>kind of stay.</em></h3></div>
+          <div><h3 id="collection-heading">Find your <em>kind of stay.</em></h3></div>
           <nav aria-labelledby="collection-heading">{villas.map(villa => <a href={`/villas/${villa.slug}/`} key={villa.slug}>{villa.name}<Arrow diagonal /></a>)}</nav>
         </div>
       </section>

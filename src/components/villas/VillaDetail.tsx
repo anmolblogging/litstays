@@ -3,12 +3,14 @@ import localFont from 'next/font/local';
 import type { CSSProperties } from 'react';
 import { Navbar } from '../layout/Navbar';
 import { Footer } from '../layout/Footer';
-import { Arrow, BrandMark } from '../ui/Icons';
+import { Arrow, BrandMark, PropertyIcon, amenityIconKind } from '../ui/Icons';
 import { Reveal } from '../ui/Reveal';
 import type { Villa } from '@/lib/villas';
 import { site } from '@/lib/site-content';
 import { VillaGallery } from './VillaGallery';
 import { VillaDining } from './VillaDining';
+import { AvailabilitySection } from '../sections/AvailabilitySection';
+import { StayProvider } from '../availability/StayProvider';
 import { VillaBrochureBook } from './VillaBrochureBook';
 import villaImageLoader from '@/lib/villa-image-loader';
 import styles from './VillaDetail.module.css';
@@ -60,14 +62,9 @@ export function VillaDetail({ villa }: { villa: Villa }) {
           </div>
           <div className={styles.staySummary}>
             <dl className={styles.stayFacts}><div><dt>Bedrooms</dt><dd>{String(villa.bedrooms).padStart(2, '0')}</dd></div><div><dt>Your outdoors</dt><dd className={styles.outdoorFact}>{villa.hasPool ? 'Private pool' : 'Private Jacuzzi'}</dd></div></dl>
-            <aside className={styles.quote} aria-label={`${villa.name} stay quotation`}>
+            <aside className={styles.quote} aria-label={`${villa.name} refundable deposit`}>
               <dl className={styles.rates}>
-                <div><dt>Villa stay</dt><dd>
-                  {villa.stayPrice !== undefined ? <span className={styles.price}><span className={styles.currency}>₹</span>{villa.stayPrice.toLocaleString('en-IN')}</span> : <span className={styles.priceRequest}>Price on request</span>}
-                  {villa.priceIncludes && <p className={styles.quoteNote}>Stay & amenities included. Food extra.</p>}
-                  {villa.stayPrice === undefined && <p className={styles.quoteNote}>Share your dates for a quotation.</p>}
-                </dd></div>
-                {villa.refundableDeposit !== undefined && <div><dt>Extra deposit</dt><dd><span className={styles.price}><span className={styles.currency}>₹</span>{villa.refundableDeposit.toLocaleString('en-IN')}</span><p className={styles.deposit}>Refundable on checkout.</p></dd></div>}
+                {villa.refundableDeposit !== undefined && <div><dt>Refundable deposit</dt><dd><span className={styles.price}><span className={styles.currency}>₹</span>{villa.refundableDeposit.toLocaleString('en-IN')}</span><p className={styles.deposit}>Refundable on checkout.</p></dd></div>}
               </dl>
             </aside>
           </div>
@@ -81,11 +78,12 @@ export function VillaDetail({ villa }: { villa: Villa }) {
           {comfortPhoto && <Reveal className={styles.comfortVisual}><Image src={comfortPhoto.src} alt={comfortPhoto.alt} fill loader={villaImageLoader} unoptimized={!comfortPhoto.responsive} sizes="(max-width: 800px) 100vw, 48vw" /></Reveal>}
           <div className={styles.comfortContent}>
             <h2 id="amenities-heading">The comforts.</h2>
-            <ul className={styles.amenityList}>{villa.amenities.map(amenity => <li key={amenity.name}><details name="villa-amenities"><summary>{amenity.name}<span aria-hidden="true">+</span></summary><p>{amenity.detail}</p></details></li>)}</ul>
+            <ul className={styles.amenityGrid}>{villa.amenities.map(amenity => <li key={amenity.name} title={amenity.detail}><PropertyIcon kind={amenityIconKind(amenity.name)}/><span>{amenity.name}</span><span className="sr-only">{amenity.detail}</span></li>)}</ul>
           </div>
         </section>
 
         <VillaDining />
+        <StayProvider><AvailabilitySection continueHref={site.instagramMessage} /></StayProvider>
         <Footer homePath="/" datesHref={site.instagramMessage} datesLabel="Contact" />
       </div>
     </main>

@@ -22,7 +22,7 @@ function monthCells(month: string) {
   return Array.from({ length: Math.ceil((offset + length) / 7) * 7 }, (_, i) => i < offset || i >= offset + length ? null : `${month}-${String(i - offset + 1).padStart(2, '0')}`);
 }
 
-export default function AvailabilityCalendar() {
+export default function AvailabilityCalendar({ continueHref = '#enquire' }: { continueHref?: string }) {
   const { dates, setDates } = useStay();
   const [month, setMonth] = useState(() => dateInZone(Date.now(), 'Asia/Kolkata').slice(0, 7));
   const [twoMonths, setTwoMonths] = useState(() => window.matchMedia('(min-width: 1050px)').matches);
@@ -143,7 +143,7 @@ export default function AvailabilityCalendar() {
     <div className="calendar-legend" aria-label="Calendar legend"><span><i className="legend-available"/>Available</span><span><i className="legend-unavailable"/>Unavailable night</span><span><i className="legend-selected"/>Your dates</span></div>
     <div className="calendar-selection"><div><span>CHECK-IN</span><strong>{shortDate(dates.checkIn)}</strong></div><Arrow/><div><span>CHECK-OUT</span><strong>{shortDate(dates.checkOut)}</strong></div>{(dates.checkIn || dates.checkOut) && <button className="calendar-clear" onClick={() => { setDates({ checkIn: '', checkOut: '' }); setNotice('Choose a check-in date, then a check-out date.'); }}>Clear</button>}</div>
     <p className="calendar-status" role="status">{phase === 'loading' ? 'Checking dates…' : phase === 'error' ? 'Please retry, or contact your host directly.' : selectedError || notice}</p>
-    {dates.checkIn && dates.checkOut && phase === 'ready' && !selectedError && <a className="button button-green calendar-continue" href="#enquire">Plan this stay <span>{nightsBetween(dates.checkIn, dates.checkOut)} nights</span><Arrow diagonal/></a>}
+    {dates.checkIn && dates.checkOut && phase === 'ready' && !selectedError && <a className="button button-green calendar-continue" href={continueHref} {...(continueHref.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>Plan this stay <span>{nightsBetween(dates.checkIn, dates.checkOut)} nights</span><Arrow diagonal/></a>}
     {data && phase === 'ready' && <p className="calendar-freshness">{data.status === 'demo' ? 'Preview only. These dates do not reflect real bookings.' : `Refreshes every ${data.refreshAfterSeconds} seconds. Dates remain subject to confirmation.`}{data.minStayNights > 0 ? ` Minimum stay: ${data.minStayNights} nights.` : ''}</p>}
   </div>;
 }

@@ -1,51 +1,74 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
-import { Arrow } from '../ui/Icons';
+import villaImageLoader from '@/lib/villa-image-loader';
 import styles from './HomeVideosSection.module.css';
-import { FilmPreviewCard, type Film } from './FilmPreviewCard';
 
 // Owner-supplied films, with cover photography from the approved villa library.
 const films = [
-  { id: 'ZkFFq16fB2I', title: 'Luxury Villa in Virar, Mumbai', href: 'https://www.youtube.com/watch?v=ZkFFq16fB2I', poster: '/archway/optimized/archway-aerial-1-1920.webp', alt: 'The villas surrounded by trees and green hills' },
-  { id: 'sp49A-K0TmQ', title: 'Amenities at LIT Stays', href: 'https://www.youtube.com/watch?v=sp49A-K0TmQ', poster: '/avante/optimized/avante-15-1920.webp', alt: 'Villa Avante’s private pool and palm-framed courtyard' },
+  { id: 'ZkFFq16fB2I', title: 'Luxury Villa in Virar, Mumbai', kind: 'Villa tour', note: 'Fly in over the treeline and wander through the villas, room by room.', poster: '/archway/optimized/archway-aerial-1-1920.webp', alt: 'The villas surrounded by trees and green hills' },
+  { id: 'sp49A-K0TmQ', title: 'Amenities at LIT Stays', kind: 'Walkthrough', note: 'Private pools, open courtyards and the little comforts waiting for you.', poster: '/avante/optimized/avante-15-1920.webp', alt: 'Villa Avante’s private pool and palm-framed courtyard' },
 ];
-const shorts = [
-  { id: '9ndnJAIcA1Y', title: 'You’ve earned this', href: 'https://www.youtube.com/shorts/9ndnJAIcA1Y', poster: '/archway/optimized/archway-aerial-2-1920.webp', alt: 'An aerial view of the villas and their green surroundings' },
-  { id: '5RSpQchGXyk', title: 'A LIT weekend', href: 'https://www.youtube.com/shorts/5RSpQchGXyk', poster: '/avante/optimized/avante-26-1920.webp', alt: 'A quiet balcony looking out over trees' },
-  { id: 'CCMzu5EdfyA', title: 'Check-in experience', href: 'https://www.youtube.com/shorts/CCMzu5EdfyA', poster: '/archway/optimized/archway-45-1920.webp', alt: 'The villa entrance passage lined with plants and arched windows' },
-];
-function FilmGrid({ items, label, vertical, playing, onPlay }: {
-  items: Film[]; label: string; vertical?: boolean; playing: string | null; onPlay: (id: string | null) => void;
-}) {
-  return <ul className={`${styles.track} ${vertical ? styles.shortsTrack : ''}`} aria-label={`LIT Stays ${label.toLowerCase()}`}>
-    {items.map(item => <FilmPreviewCard key={item.id} item={item} vertical={vertical} active={playing === item.id}
-      onActivate={() => onPlay(item.id)} onLeave={() => onPlay(null)} />)}
-  </ul>;
-}
+
 
 export function HomeVideosSection() {
-  const [playing, setPlaying] = useState<string | null>(null);
+  const [current, setCurrent] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const film = films[current];
+
+  function choose(index: number) {
+    if (index === current) return;
+    setCurrent(index);
+    setPlaying(false);
+  }
+
   return <section id="videos" className={`${styles.section} section-padding`} aria-labelledby="videos-heading">
     <div className={styles.heading}>
-      <h2 id="videos-heading">LIT Stays on <em>film.</em></h2>
-      <p>Explore our villas, amenities, and experiences through curated videos and short stories.</p>
+      <p className={`eyebrow ${styles.eyebrow}`}>The LIT Stays on film</p>
+      <h2 id="videos-heading">Press play on <em>slow living.</em></h2>
+      <p className={styles.lead}>A closer look at the villas, the pools and the unhurried afternoons — before you arrive.</p>
     </div>
-    <div className={styles.row}>
-      <div className={styles.intro}>
-        <h3>Videos</h3>
-        <p>In-depth villa tours, amenities walkthroughs, and experiences.</p>
-        <a className={styles.allVideos} href="https://www.youtube.com/@thelitstays/videos" target="_blank" rel="noopener noreferrer">Watch All Videos <Arrow diagonal /></a>
+
+    <div className={styles.stage}>
+      <div className={styles.screen}>
+        {playing
+          ? <iframe key={film.id} className={styles.player} title={film.title}
+              src={`https://www.youtube-nocookie.com/embed/${film.id}?autoplay=1&playsinline=1&rel=0&modestbranding=1`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen referrerPolicy="strict-origin-when-cross-origin" />
+          : <button type="button" className={styles.cover} onClick={() => setPlaying(true)} aria-label={`Play ${film.title}`}>
+              <Image key={film.poster} src={film.poster} alt={film.alt} fill loader={villaImageLoader} sizes="(max-width: 900px) 92vw, 62vw" />
+              <span className={styles.shade} aria-hidden="true" />
+              <span className={styles.inset} aria-hidden="true" />
+              <span className={styles.coverText}>
+                <span className={styles.coverKind}>{String(current + 1).padStart(2, '0')} · {film.kind}</span>
+                <span className={styles.coverTitle}>{film.title}</span>
+              </span>
+              <span className={styles.play} aria-hidden="true">
+                <span className={styles.playDisc}><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 4v16l13-8z" /></svg></span>
+                <span className={styles.playLabel}>Play film</span>
+              </span>
+            </button>}
       </div>
-      <FilmGrid items={films} label="Videos" playing={playing} onPlay={setPlaying} />
-    </div>
-    <div className={styles.row}>
-      <div className={styles.intro}>
-        <h3>Shorts</h3>
-        <p>Quick moments from<br />our stays.</p>
-        <a className={`${styles.allVideos} ${styles.allShorts}`} href="https://www.youtube.com/@thelitstays/shorts" target="_blank" rel="noopener noreferrer">Watch All Shorts <Arrow diagonal /></a>
+
+      <div className={styles.side}>
+        <p className={styles.sideLabel}>Now showing</p>
+        <ol className={styles.list}>
+          {films.map((item, index) => <li key={item.id}>
+            <button type="button" className={styles.item} aria-pressed={index === current} onClick={() => choose(index)}>
+              <span className={styles.thumb}>
+                <Image src={item.poster} alt="" fill loader={villaImageLoader} sizes="140px" />
+              </span>
+              <span className={styles.itemText}>
+                <span className={styles.itemKind}>{String(index + 1).padStart(2, '0')} — {item.kind}</span>
+                <span className={styles.itemTitle}>{item.title}</span>
+                <span className={styles.itemNote}>{item.note}</span>
+              </span>
+            </button>
+          </li>)}
+        </ol>
       </div>
-      <FilmGrid items={shorts} label="Shorts" vertical playing={playing} onPlay={setPlaying} />
     </div>
   </section>;
 }

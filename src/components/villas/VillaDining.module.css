@@ -25,7 +25,7 @@
   margin: 22px 0 0;
   padding: 0;
   color: var(--muted);
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.7;
 }
 .meals > li { display: flex; align-items: center; gap: 18px; }
@@ -81,7 +81,7 @@
   padding-top: 20px;
   border-top: 1px solid var(--rule);
 }
-.packages > li > span { font-size: 17px; line-height: 1.5; }
+.packages > li > span { font-size: 18px; line-height: 1.5; }
 .packages strong {
   display: flex;
   align-items: baseline;
@@ -91,13 +91,13 @@
   white-space: nowrap;
 }
 .currency { font: 400 .43em/1 var(--font-sans), sans-serif; letter-spacing: 0; }
-.priceNote { margin-top: 29px; font-size: 14px; line-height: 1.7; color: var(--muted); }
+.priceNote { margin-top: 29px; font-size: 16px; line-height: 1.7; color: var(--muted); }
 .brochure { margin-top: 20px; }
 .brochure > :global(div[data-theme]) { gap: 34px; }
 .brochure > :global(div[data-theme]) > button { gap: 24px; }
 .brochure > :global(div[data-theme]) > a { gap: 16px; }
 
-.foodRules { margin-top: 25px; color: var(--muted); font-size: 15px; line-height: 1.85; }
+.foodRules { margin-top: 25px; color: var(--muted); font-size: 17px; line-height: 1.85; }
 .foodRules h3 { font: inherit; font-weight: 500; color: var(--ink); }
 .foodRules ul { margin: 10px 0 0; padding-left: 20px; list-style: disc; }
 
@@ -110,13 +110,13 @@
   min-height: 48px;
   cursor: pointer;
   list-style: none;
-  font-size: 15px;
+  font-size: 17px;
   color: var(--muted);
 }
 .terms > summary::-webkit-details-marker { display: none; }
 .terms > summary > span { font-size: 23px; line-height: 1; transition: transform .3s ease; }
 .terms[open] > summary > span { transform: rotate(45deg); }
-.terms > p { padding-block: 8px 18px; color: var(--muted); font-size: 15px; line-height: 1.85; }
+.terms > p { padding-block: 8px 18px; color: var(--muted); font-size: 17px; line-height: 1.85; }
 
 @media (hover: hover) {
   .foodPhoto:hover img, .tablePhoto:hover img { transform: scale(1.035); }
@@ -127,7 +127,7 @@
   .photographs { height: 490px; }
   .foodPhoto { border-top-right-radius: 100px; }
   .packages { gap: 30px 24px; }
-  .packages > li > span { font-size: 16px; }
+  .packages > li > span { font-size: 18px; }
 }
 @media (max-width: 1000px) {
   .section { padding-block: 65px 85px; }
@@ -139,7 +139,7 @@
   .tablePhoto { width: 40%; height: 62%; }
   .content { width: 100%; max-width: 590px; margin-inline: auto; }
   .packages { column-gap: 42px; }
-  .packages > li > span { font-size: 18px; }
+  .packages > li > span { font-size: 19px; }
   .packages strong { font-size: 54px; }
   .priceNote { margin-top: 26px; }
 }
@@ -147,7 +147,7 @@
   .section { padding-block: 45px 65px; }
   .heading { margin-bottom: 32px; }
   .heading h2 { font-size: clamp(47px, 13.6vw, 76px); }
-  .meals { gap: 5px 12px; margin-top: 20px; font-size: 14px; }
+  .meals { gap: 5px 12px; margin-top: 20px; font-size: 16px; }
   .meals > li { gap: 12px; }
   .layout { gap: 30px; }
   .photographs { height: clamp(310px, 96vw, 480px); }
@@ -155,7 +155,7 @@
   .tablePhoto { width: 41%; height: 59%; border-top-width: 7px; border-left-width: 7px; }
   .packages { gap: 27px 24px; }
   .packages > li { gap: 13px; padding-top: 17px; }
-  .packages > li > span { font-size: 15px; }
+  .packages > li > span { font-size: 17px; }
   .packages strong { font-size: 46px; }
   .priceNote { margin-top: 24px; }
   .brochure { margin-top: 17px; }

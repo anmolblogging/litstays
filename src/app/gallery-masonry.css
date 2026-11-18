@@ -34,8 +34,8 @@
   transition: none;
 }
 .gallery-journal-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 7px; }
-.gallery-journal .gallery-journal-category { display: block; margin: 0; color: var(--muted); font-size: 8px; line-height: 1.5; letter-spacing: .13em; text-transform: uppercase; }
-.gallery-journal-number { position: absolute; top: 15px; left: 15px; z-index: 2; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--journal-ivory); font-size: 9px; line-height: 1; letter-spacing: .04em; color:var(--ink); }
+.gallery-journal .gallery-journal-category { display: block; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; letter-spacing: .13em; text-transform: uppercase; }
+.gallery-journal-number { position: absolute; top: 15px; left: 15px; z-index: 2; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--journal-ivory); font-size: 12px; line-height: 1; letter-spacing: .04em; color:var(--ink); }
 .gallery-journal-caption-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; }
 .gallery-journal .gallery-journal-title { display: block; font-family: var(--font-serif), Georgia, serif; font-size: clamp(25px, 2vw, 32px); font-weight: 500; line-height: 1.06; letter-spacing: -.015em; text-wrap: balance; }
 .gallery-journal .gallery-item-featured .gallery-journal-title { font-size: clamp(36px, 3.3vw, 50px); }
@@ -63,7 +63,7 @@
   .gallery-journal[data-layout="1"] { grid-template-areas: "a a" "a a" "a a" "c b" "c b" "c b" "c d" "e d" "e d" "e d" "f f" "f f" "f f"; }
   .gallery-journal[data-layout="2"] { grid-template-areas: "a a" "a a" "a a" "b c" "b c" "b c" "b d" "e d" "e d" "e d" "f f" "f f" "f f"; }
   .gallery-journal .gallery-journal-caption { height: 105px; padding-top: 12px; }
-  .gallery-journal .gallery-journal-category { font-size: 6px; letter-spacing: .08em; }
+  .gallery-journal .gallery-journal-category { font-size: 10px; letter-spacing: .08em; }
   .gallery-journal .gallery-journal-title { font-size: clamp(21px, 3.6vw, 32px); }
   .gallery-journal-caption-row { gap: 7px; }
   .gallery-journal .gallery-expand { width: 22px; height: 22px; }
@@ -76,7 +76,7 @@
   .gallery-journal .journal-tile-5 .gallery-journal-caption { height: 84px; }
   .gallery-journal .gallery-item-featured .gallery-journal-title { font-size: clamp(31px, 8vw, 40px); }
   .gallery-journal .gallery-journal-title { font-size: clamp(20px, 5.2vw, 26px); }
-  .gallery-journal-number { width: 27px; height: 27px; top: 11px; left: 11px; font-size: 8px; }
+  .gallery-journal-number { width: 27px; height: 27px; top: 11px; left: 11px; font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .gallery-journal .gallery-expand { transition: none; }

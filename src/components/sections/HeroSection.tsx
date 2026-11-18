@@ -33,7 +33,6 @@ export function HeroSection() {
       <HeroSlideshow name="LIT Stays" slides={slides} variant="home" />
       <div className="hero-shade"/>
       <LazyMotion features={domAnimation}><m.div className="hero-content" style={reduced ? undefined : { opacity, y }}>
-        <p className="eyebrow hero-enter">PRIVATE STAYS. PERSONAL MOMENTS.</p>
         <h1 id="hero-heading">Some places stay <em>with you.</em></h1>
         <p className="hero-description hero-enter">A place to slow down. Room to reconnect. A little time that’s entirely your own.</p>
         <div className="hero-booking hero-enter" role="group" aria-label="Your stay">
@@ -60,7 +59,6 @@ export function HeroSection() {
           </label>
         </div>
       </m.div></LazyMotion>
-      <div className="hero-bottom hero-enter"><a href="#introduction" className="scroll-cue"><span className="scroll-line"/>SCROLL TO SLOW DOWN</a><span className="hero-footnote">Thoughtfully stayed.<br/><span>Beautifully remembered.</span></span></div>
       <span className="hero-vertical" aria-hidden="true">THE ART OF DOING A LITTLE LESS</span>
     </div>
   </section>;

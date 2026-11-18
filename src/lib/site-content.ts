@@ -13,6 +13,8 @@ export const site = {
   location: 'Virar East, Maharashtra',
   directions: 'https://www.google.com/maps/search/?api=1&query=Virar+East+Maharashtra+India',
   // Add only owner-confirmed values. Undefined details are never rendered.
+  // Floating WhatsApp chat button (every page). Founder's number, as published in the FAQ.
+  whatsappChat: '918655750771',
   contact: { whatsapp: undefined as string | undefined, email: undefined as string | undefined },
   propertyDetails: {
     guestCapacity: 20,

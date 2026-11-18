@@ -41,7 +41,6 @@ export function Navbar({ homePath = '', currentPath, light = false, enquiryHref 
     </header>
     <dialog id="mobile-menu" className="mobile-menu" ref={dialog} aria-label="Site navigation" onCancel={close} onClose={() => setOpen(false)}>
       <div className="menu-top"><a className={styles.menuBrand} href={href('#home')} aria-label="The LIT Stays home" onClick={close}><BrandLogo tone="sand" /></a><button autoFocus aria-label="Close navigation menu" onClick={close}>Close <span aria-hidden="true">×</span></button></div>
-      <p className="eyebrow">YOUR OWN LITTLE ESCAPE</p>
       <nav aria-label="Mobile navigation">{navbarLinks.map((link, i) => <a href={href(link.href)} key={link.href} aria-current={link.href === currentPath ? 'page' : undefined} onClick={close}><span>{String(i + 1).padStart(2, '0')}</span>{link.label}<Arrow diagonal/></a>)}<a href={enquiryHref} target={enquiryHref.startsWith('http') ? '_blank' : undefined} rel={enquiryHref.startsWith('http') ? 'noopener noreferrer' : undefined} onClick={close}><span>{String(navbarLinks.length + 1).padStart(2, '0')}</span>Plan your stay<Arrow diagonal/></a></nav>
       <p className="menu-bottom">Some places stay with you.</p>
     </dialog>

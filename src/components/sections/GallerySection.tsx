@@ -29,7 +29,7 @@ export function GallerySection() {
   function close() { dialog.current?.close(); setOpen(false); trigger.current?.focus(); }
   return <section className="gallery section-padding" id="gallery" aria-labelledby="gallery-heading">
     <div className="gallery-heading-row">
-      <Reveal className="gallery-heading"><p className="eyebrow">THE PHOTO JOURNAL</p><h2 id="gallery-heading">Wish <em>you were here.</em></h2></Reveal>
+      <Reveal className="gallery-heading"><h2 id="gallery-heading">Wish <em>you were here.</em></h2></Reveal>
       <Reveal className="gallery-introduction" delay={.08}><p>Little corners. Longer evenings.<br />A few things to look forward to.</p><button className="text-link dark-link" onClick={event => show(0, event.currentTarget)}>View all photographs <span className="photo-count">{photos.length.toString().padStart(2, '0')}</span><Arrow diagonal /></button><a className="text-link dark-link" href={site.instagram} target="_blank" rel="noopener noreferrer">Follow on Instagram <Arrow diagonal /></a></Reveal>
     </div>
     <GalleryMosaic paused={open} onSelect={show} />

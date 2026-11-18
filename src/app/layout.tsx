@@ -13,7 +13,11 @@ import './room-for-you.css';
 import './gallery-masonry.css';
 import './section-watermarks.css';
 import './hero.css';
+import './faq-split.css';
 import { HeadingSelection } from '@/components/ui/HeadingSelection';
+import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
+import './footer-enquiry.css';
+import './type-scale.css';
 
 const serif = localFont({ src: '../../public/fonts/cormorant-garamond.woff2', style: 'normal', weight: '300 700', variable: '--font-serif', display: 'swap', preload: true });
 const sans = localFont({ src: '../../public/fonts/manrope.woff2', weight: '400 700', variable: '--font-sans', display: 'swap', preload: true });
@@ -44,5 +48,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#2C3B28', colorScheme: 'light' };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" className={`${serif.variable} ${sans.variable} ${roboto.variable}`}><body><HeadingSelection/><a href="#main" className="skip-link">Skip to content</a>{children}</body></html>;
+  return <html lang="en" className={`${serif.variable} ${sans.variable} ${roboto.variable}`}><body><HeadingSelection/><a href="#main" className="skip-link">Skip to content</a>{children}<WhatsAppButton/></body></html>;
 }

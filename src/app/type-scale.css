@@ -1,0 +1,34 @@
+/* Type floor: loaded last so small text across the site reads comfortably.
+   Feedback: text felt "like ants". Raise these when the brand kit sizes arrive. */
+body { font-size: 17px; }
+.eyebrow { font-size: 14px; }
+.text-link { font-size: 16px; }
+.button, .nav-enquire, .form-submit { font-size: 15px; }
+.image-caption, .photo-caption, .facts-image-caption, .experience-photo-label { font-size: 14px; }
+.hero-actions .text-link, .scroll-cue { font-size: 14px; }
+.hero-description { font-size: clamp(17px, 1.2vw, 20px); }
+.intro-copy > p { font-size: 18px; }
+.intro-copy > .intro-lead { font-size: 20px; }
+.experience-intro, .moment-description p { font-size: 17px; }
+.moment button { font-size: 17px; }
+.moment-number { font-size: 14px; }
+.lit-faq-section .lit-faq-question { font-size: 22px; }
+.lit-faq-section .lit-faq-answer, .lit-faq-answer { font-size: 17px; }
+.booking-intro p:not(.eyebrow), .booking-form input, .booking-form textarea { font-size: 16px; }
+.booking-form label, .form-note, .guests-row > span { font-size: 15px; }
+.footer-bottom { font-size: 14px; }
+
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .eyebrow { font-size: 13px; }
+  .text-link { font-size: 15px; }
+  .button, .nav-enquire, .form-submit { font-size: 14px; }
+  .hero-description { font-size: 16px; }
+  .intro-copy > p { font-size: 16px; }
+  .intro-copy > .intro-lead { font-size: 18px; }
+  .experience-intro, .moment-description p, .moment button { font-size: 16px; }
+  .lit-faq-section .lit-faq-question { font-size: 19px; }
+  .lit-faq-section .lit-faq-answer, .lit-faq-answer { font-size: 16px; }
+  .booking-form label, .form-note, .guests-row > span { font-size: 14px; }
+  .footer-bottom { font-size: 13px; }
+}

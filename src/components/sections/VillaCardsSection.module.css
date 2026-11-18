@@ -1,38 +1,59 @@
-.section { padding-bottom: 64px; background: var(--ivory); }
+/* Three villas as soft rounded cards: inset photo, name, tagline, essentials with icons, a clear call to action. */
+.section { position: relative; padding-bottom: clamp(70px, 8vw, 120px); background: var(--ivory); }
 
-.villaCards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 30px); margin: 0; padding: 0; list-style: none; }
+.heading { display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 auto clamp(44px, 5vw, 72px); }
+.heading h2 { font-size: clamp(34px, 4.4vw, 72px); line-height: 1.03; letter-spacing: -.03em; white-space: nowrap; }
+
+.villaCards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); margin: 0; padding: 0; list-style: none; }
 .villaCards > li { min-width: 0; }
-.villaCard { position: relative; display: flex; align-items: flex-end; width: 100%; min-width: 0; aspect-ratio: 4 / 5; min-height: 360px; overflow: hidden; isolation: isolate; border-radius: 24px; background: var(--forest); color: var(--ivory); }
-.villaCardImage { object-fit: cover; object-position: center; }
-.villaCardShade { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 25%, rgba(var(--ink-rgb), .2) 45%, rgba(var(--ink-rgb), .9)); }
-.villaCardCopy { position: relative; z-index: 1; width: 100%; padding: clamp(22px, 2.3vw, 36px); }
-.villaCardLocation { margin-bottom: 10px; font-size: 10px; line-height: 1.5; letter-spacing: .12em; text-transform: uppercase; }
-.villaCardCopy h3 { font-size: clamp(30px, 3vw, 48px); line-height: 1.05; letter-spacing: -.025em; }
-.villaCardFacts { margin-top: 12px; font-size: 12px; line-height: 1.6; color: var(--on-dark); }
-.villaCardFacts > span { padding-inline: 5px; }
-.villaCardLink { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 26px; padding-top: 18px; font-size: 12px; line-height: 1.5; }
-.villaCardLink > svg { flex-shrink: 0; transition: transform 250ms var(--ease); }
-.villaCard:focus-visible { outline-color: var(--ivory); outline-offset: -7px; }
+.reveal { height: 100%; }
+
+.villaCard {
+  display: flex; flex-direction: column; height: 100%; padding: 12px;
+  border: 1px solid rgba(var(--ink-rgb), .08); border-radius: 22px; background: #FCF8EF; color: var(--ink);
+  box-shadow: 0 1px 2px rgba(var(--ink-rgb), .04), 0 14px 34px -22px rgba(var(--ink-rgb), .28);
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+.villaCard:focus-visible { outline: 2px solid var(--forest); outline-offset: 4px; }
+
+.photo { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 14px; background: var(--sand); }
+.villaCardImage { object-fit: cover; object-position: center; transition: transform 1.4s var(--ease); }
+
+.villaCardCopy { display: flex; flex: 1; flex-direction: column; padding: 22px 12px 10px; }
+.villaCardCopy h3 { font-size: clamp(28px, 2.4vw, 38px); line-height: 1.05; letter-spacing: -.02em; }
+.tagline { margin-top: 8px; font-family: var(--font-serif), Georgia, serif; font-style: italic; font-size: clamp(18px, 1.4vw, 21px); line-height: 1.4; color: var(--muted); }
+
+.facts { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 18px 0 22px; padding: 16px 0 0; border-top: 1px solid var(--rule); list-style: none; font-size: 15px; font-weight: 500; color: var(--ink); }
+.facts > li { display: inline-flex; align-items: center; gap: 9px; }
+.facts > li > svg { width: 26px; height: 26px; flex-shrink: 0; color: var(--forest); }
+
+.cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; margin-top: auto; min-height: 48px; border-radius: 999px; background: var(--forest); color: var(--ivory); font-size: 15px; font-weight: 500; letter-spacing: .02em; transition: background .35s; }
+.cta > svg { width: 14px; height: 14px; transition: transform 250ms var(--ease); }
+
 @media (hover: hover) {
-  .villaCard:hover .villaCardLink > svg { transform: translate(2px, -2px); }
+  .villaCard:hover { transform: translateY(-4px); box-shadow: 0 1px 2px rgba(var(--ink-rgb), .05), 0 24px 44px -24px rgba(var(--ink-rgb), .38); }
+  .villaCard:hover .villaCardImage { transform: scale(1.04); }
+  .villaCard:hover .cta { background: var(--ink); }
+  .villaCard:hover .cta > svg { transform: translate(2px, -2px); }
 }
 
 @media (max-width: 1100px) {
-  .villaCard { min-height: 330px; border-radius: 20px; }
-  .villaCardCopy { padding: 22px; }
-  .villaCardFacts { font-size: 11px; }
+  .villaCardCopy h3 { font-size: 28px; }
+  .facts { font-size: 14px; gap: 8px 16px; }
+  .facts > li > svg { width: 22px; height: 22px; }
 }
 
+/* Phones: heading wraps; villas become a swipeable row. */
 @media (max-width: 760px) {
-  .section { padding-bottom: 42px; }
-  .villaCards { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(240px, 82%); gap: 16px; padding-bottom: 14px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--sage) transparent; }
+  .villaCards { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(240px, 80%); gap: 16px; padding: 4px 2px 18px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--sage) transparent; }
   .villaCards > li { scroll-snap-align: start; }
-  .villaCard { min-height: 350px; }
-  .villaCardCopy h3 { font-size: 38px; }
-  .villaCardFacts { font-size: 12px; }
+  .villaCard { padding: 10px; border-radius: 18px; }
+  .photo { border-radius: 12px; }
+  .villaCardCopy { padding: 18px 8px 6px; }
+  .villaCardCopy h3 { font-size: 30px; }
 }
+@media (max-width: 640px) { .heading h2 { white-space: normal; font-size: clamp(36px, 10vw, 48px); } }
 
 @media (prefers-reduced-motion: reduce) {
-  .villaCardLink > svg { transition: none; }
-  .villaCard:hover .villaCardLink > svg { transform: none; }
+  .villaCard, .villaCardImage, .cta, .cta > svg { transition: none; }
 }

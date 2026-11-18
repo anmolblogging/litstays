@@ -3,18 +3,20 @@
 import Image from 'next/image';
 import { useRef, useState, type KeyboardEvent } from 'react';
 import { photos } from '@/lib/site-content';
-import { Arrow, BrandMark } from '../ui/Icons';
+import { Arrow } from '../ui/Icons';
 import { IntroFade } from '../ui/IntroFade';
 import styles from './VillaSpacesSection.module.css';
 
 // Original design: VillaSpacesBookSection.tsx. Restore by importing
 // VillaSpacesBookSection as VillaSpacesSection in page.tsx; its styles are retained.
 const spaces = [
-  { photo: photos[0], label: 'Living room', prelude: 'ROOM FOR GOOD COMPANY', title: <>A softer kind <em>of welcome.</em></>, description: 'Light-filled arches. Warm, considered interiors. A place to gather, settle in, and let the conversation wander.', note: 'Together feels effortless here.' },
-  { photo: photos[2], label: 'Private pool', prelude: 'OUT IN THE OPEN', title: <>A little less on the <em>agenda.</em></>, description: 'Take a dip. Stay a while. Repeat. Your own private pool, with room for the afternoon to find its own pace.', note: 'A moment, entirely your own.' },
-  { photo: photos[1], label: 'Bedrooms', prelude: 'A SOFTER START', title: <>Rest comes <em>naturally.</em></>, description: 'A greener view. An unhurried morning. Three bedrooms to retreat to, with a quiet corner to make your own.', note: 'No alarm. No agenda. Just you.' },
-  { photo: photos[8], label: 'The arrival', prelude: 'LEAVE THE EVERYDAY AT THE DOOR', title: <>Considered spaces. <em>Effortless days.</em></>, description: 'A sunlit passage, potted greens, and a softer welcome. From the first step inside, there’s permission to slow down.', note: 'You’re right where you need to be.' },
+  { photo: photos[0], label: 'Living room', prelude: 'ROOM FOR GOOD COMPANY', title: <>A softer kind <em>of welcome.</em></>, description: 'Light-filled arches. Warm, considered interiors. A place to gather, settle in, and let the conversation wander.', note: 'Sink into the sofas and let the conversation wander.' },
+  { photo: photos[2], label: 'Private pool', prelude: 'OUT IN THE OPEN', title: <>A little less on the <em>agenda.</em></>, description: 'Take a dip. Stay a while. Repeat. Your own private pool, with room for the afternoon to find its own pace.', note: 'Your own pool, for slow afternoons and evening dips.' },
+  { photo: photos[1], label: 'Bedrooms', prelude: 'A SOFTER START', title: <>Rest comes <em>naturally.</em></>, description: 'A greener view. An unhurried morning. Quiet bedrooms to retreat to, with a corner to make your own.', note: 'Quiet rooms, soft linen and mornings without an alarm.' },
+  { photo: photos[7], label: 'Game room', prelude: 'A LITTLE FRIENDLY COMPETITION', title: <>One more <em>round.</em></>, description: 'Foosball, table tennis, cards and darts. Pick a game, pick a side, and let the laughter get a little loud.', note: 'Foosball, table tennis, darts and cards for everyone.' },
+  { photo: photos[6], label: 'Terrace', prelude: 'UNDER AN OPEN SKY', title: <>Let the evening <em>linger.</em></>, description: 'Warm lights, open air and a view of the trees. The best place to end the day, together, under the stars.', note: 'Open-air evenings under warm lights and the stars.' },
 ];
+const total = String(spaces.length).padStart(2, '0');
 
 export function VillaSpacesSection() {
   const [active, setActive] = useState(0);
@@ -56,14 +58,8 @@ export function VillaSpacesSection() {
   return <section id="bungalow" className={`${styles.section} section-padding`} aria-labelledby="bungalow-heading">
     <div className={styles.heading}>
       <IntroFade>
-        <p className="eyebrow">VILLA ARCHWAY / THE BUNGALOW</p>
         <h2 id="bungalow-heading">Designed for time <em>well spent.</em></h2>
-      </IntroFade>
-      <IntroFade className={styles.introduction} delay={.12}>
-        <BrandMark className={styles.mark} />
-        <p>Arched windows. Warm interiors. Green views. A place to come together, with a little room to find yourself.</p>
-      </IntroFade>
-    </div>
+      </IntroFade>    </div>
 
     <div className={styles.explorer} id="spaces">
       <div className={styles.stage} data-villa-stage aria-busy={requested !== active}>
@@ -79,7 +75,7 @@ export function VillaSpacesSection() {
         >
           <Image ref={node => { images.current[index] = node; }} src={space.photo.src} alt={space.photo.alt} fill sizes="(max-width: 760px) 100vw, 65vw" loading={requested === index ? 'eager' : 'lazy'} unoptimized />
           <div className={styles.shade} />
-          <div className={styles.photoTop} aria-hidden="true"><span>A CLOSER LOOK AT THE SLOW LIFE</span><span>0{index + 1} / 04</span></div>
+          <div className={styles.photoTop} aria-hidden="true"><span>A CLOSER LOOK AT THE SLOW LIFE</span><span>0{index + 1} / {total}</span></div>
           <div className={styles.caption}>
             <p className={styles.prelude}>{space.prelude}</p>
             <h3>{space.title}</h3>
@@ -89,8 +85,8 @@ export function VillaSpacesSection() {
       </div>
 
       <aside className={styles.sidebar}>
-        <div className={styles.sidebarHeading}><span className="eyebrow">THE SPACES</span><p>Find your <br/>favourite corner.</p></div>
-        <div className={styles.tabs} role="tablist" aria-label="Explore Villa Archway’s spaces" aria-orientation="vertical">
+        <div className={styles.sidebarHeading}><p>Find your <br/>favourite corner.</p></div>
+        <div className={styles.tabs} role="tablist" aria-label="Explore the villa spaces" aria-orientation="vertical">
           {spaces.map((space, index) => <button
             ref={node => { tabs.current[index] = node; }}
             type="button"
@@ -104,18 +100,11 @@ export function VillaSpacesSection() {
             onClick={() => { void select(index); }}
             onKeyDown={event => onTabKey(event, index)}
           >
-            <span className={styles.tabNumber} aria-hidden="true">0{index + 1}</span>
-            <span className={styles.tabCopy}><span className={styles.tabTitle}>{space.label}</span><span className={styles.tabNote} aria-hidden="true">{space.note}</span></span>
+            <span className={styles.tabCopy}><span className={styles.tabTitle}>{space.label}</span><span className={styles.tabNote}>{space.note}</span></span>
             <span className={styles.tabArrow}><Arrow diagonal /></span>
           </button>)}
         </div>
-        <p className={styles.sidebarFootnote}>A PRIVATE VILLA.<br/>A SLOWER PACE.</p>
       </aside>
-    </div>
-
-    <div className={styles.footer}>
-      <p>One villa. Your people. <span>Your own rhythm.</span></p>
-      <a href="#gallery" className="text-link">Explore the photo journal <Arrow diagonal /></a>
     </div>
   </section>;
 }

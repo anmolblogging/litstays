@@ -42,9 +42,9 @@ export function VillaEnquiry({ villa }: { villa: Villa }) {
   }
 
   return <section id="enquire" className={`${styles.enquiry} section-padding`} aria-labelledby="villa-enquiry-heading">
-    <div className={styles.enquiryIntro}><p className="eyebrow">GOOD STAYS BEGIN WITH A CONVERSATION</p><h2 id="villa-enquiry-heading">Let’s make<br/><em>a little room.</em></h2><p>Tell us who’s coming and when. We’ll help you plan your {villa.name} stay.</p><div className={styles.signature}><span>Warmly,</span><strong>{villa.host.name}</strong><span>{villa.host.role} · The LIT Stays</span></div></div>
+    <div className={styles.enquiryIntro}><h2 id="villa-enquiry-heading">Let’s make<br/><em>a little room.</em></h2><p>Tell us who’s coming and when. We’ll help you plan your {villa.name} stay.</p><div className={styles.signature}><span>Warmly,</span><strong>{villa.host.name}</strong><span>{villa.host.role} · The LIT Stays</span></div></div>
     <div className={styles.enquiryForm}>
-      <div className={styles.enquiryFormHeading}><p className="eyebrow">YOUR NEXT ESCAPE</p><h3>{villa.name}</h3></div>
+      <div className={styles.enquiryFormHeading}><h3>{villa.name}</h3></div>
       <noscript><p>Tell us your name, preferred date and group size on Instagram to enquire about {villa.name}.</p><a className="button button-ivory" href={site.instagramMessage}>Enquire on Instagram <Arrow diagonal /></a></noscript>
       <form onSubmit={prepare}>
         <label>Your name<input name="name" autoComplete="name" placeholder="What should we call you?" maxLength={100} required /></label>

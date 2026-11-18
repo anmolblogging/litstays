@@ -1,28 +1,30 @@
-.header :global(.desktop-navigation) a { white-space: nowrap; font-size: 13px; }
+.header :global(.desktop-navigation) a { white-space: nowrap; font-size: 15px; }
 .header :global(.desktop-navigation) { gap: clamp(14px, 1.4vw, 24px); }
-.header { gap: 22px; --brand-logo-width: 126px; }
-.header:global(.is-scrolled) { --brand-logo-width: 110px; }
+.header { gap: 22px; --brand-logo-width: 160px; }
+/* Logo sits closer to the left edge than the page gutter. */
+.header:global(.navbar) { padding-left: clamp(12px, 1.4vw, 24px); }
+.header:global(.is-scrolled) { --brand-logo-width: 124px; }
 .menuBrand { display: block; --brand-logo-width: 140px; }
 .footer { --brand-logo-width: 174px; }
-.header :global(.nav-enquire) { font-size: 14px; gap: 14px; padding-inline: 15px; margin-left: 0; }
+.header :global(.nav-enquire) { font-size: 16px; gap: 14px; padding-inline: 15px; margin-left: 0; }
 .footer :global(.footer-main) { flex-wrap: wrap; gap: 28px; padding-block: 35px; }
-.footer :global(.footer-main) nav { flex-wrap: wrap; font-size: 14px; gap: 14px 22px; }
-.footer :global(.footer-social), .footer :global(.footer-social) > span { font-size: 14px; }
-.footer :global(.footer-bottom) { flex-wrap: wrap; font-size: 13px; gap: 15px 25px; line-height: 1.8; }
+.footer :global(.footer-main) nav { flex-wrap: wrap; font-size: 16px; gap: 14px 22px; }
+.footer :global(.footer-social), .footer :global(.footer-social) > span { font-size: 16px; }
+.footer :global(.footer-bottom) { flex-wrap: wrap; font-size: 15px; gap: 15px 25px; line-height: 1.8; }
 @media (max-width: 1280px) {
   .header :global(.desktop-navigation) { display: none; }
   .header :global(.menu-toggle) { display: flex; }
   .header :global(.nav-enquire) { margin-left: auto; }
 }
 @media (max-width: 600px) {
-  .header { gap: 13px; --brand-logo-width: 106px; }
-  .header:global(.is-scrolled) { --brand-logo-width: 94px; }
+  .header { gap: 13px; --brand-logo-width: 128px; }
+  .header:global(.is-scrolled) { --brand-logo-width: 112px; }
   .footer { --brand-logo-width: 132px; }
-  .header :global(.nav-enquire) { font-size: 13px; padding-inline: 0; gap: 8px; }
+  .header :global(.nav-enquire) { font-size: 15px; padding-inline: 0; gap: 8px; }
   .footer :global(.footer-main) nav { justify-content: flex-start; gap: 14px 20px; }
   .footer :global(.footer-bottom) > a { margin-left: 0; }
 }
 @media (max-width: 360px) {
   .header { gap: 8px; }
-  .header :global(.nav-enquire) { font-size: 13px; gap: 6px; white-space: nowrap; }
+  .header :global(.nav-enquire) { font-size: 15px; gap: 6px; white-space: nowrap; }
 }

@@ -100,11 +100,8 @@ test('Aurania has its own amenities and pricing and clearly states it has no poo
   await expect(amenities).toContainText('Available in the hall.');
   await expect(amenities).not.toContainText('Swimming pool');
   await expect(amenities).not.toContainText('Netflix');
-  await amenities.locator('summary').filter({ hasText: 'Air conditioning' }).click();
-  await expect(amenities.getByText('AC in all bedrooms.', { exact: true })).toBeVisible();
-  await amenities.locator('summary').filter({ hasText: 'Water cooler' }).click();
-  await expect(amenities.getByText('Available in the hall.', { exact: true })).toBeVisible();
-  await expect(amenities.getByText('AC in all bedrooms.', { exact: true })).not.toBeVisible();
+  await expect(amenities.locator('li > svg')).toHaveCount(12);
+  await expect(amenities.getByText('Water cooler', { exact: true })).toBeVisible();
   await expect(quote).not.toContainText('₹18,000');
   for (const width of [320, 390, 768, 1024]) {
     await page.setViewportSize({ width, height: 900 });

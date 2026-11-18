@@ -127,11 +127,9 @@ export function VillaSpacesBookSection() {
     <div className="villa-book-track" ref={track}><div className="villa-explorer" ref={book}>
     <div className="villa-heading-row">
       <div className="villa-heading">
-        <IntroFade><p className="eyebrow">VILLA ARCHWAY / THE BUNGALOW</p></IntroFade>
         <IntroFade as="h2" id="bungalow-heading" delay={.08} duration={.95}>Designed for time <em>well spent.</em></IntroFade>
       </div>
       <IntroFade className="villa-introduction" delay={.16}>
-        <span className="villa-location">A PRIVATE VILLA. A SLOWER PACE.</span>
         <p>Arched windows. Warm interiors. Green views that invite you to pause. There’s space for everyone to come together—and a corner to make your own.</p>
       </IntroFade>
     </div>
@@ -181,7 +179,7 @@ export function VillaSpacesBookSection() {
       </div>
 
       <div className="villa-explorer-footer">
-        <p>One villa. Your people. <em>Your own rhythm.</em><span className="villa-book-hint">SCROLL TO TURN THE PAGE</span></p>
+        <p><span className="villa-book-hint">SCROLL TO TURN THE PAGE</span></p>
         <a href="#gallery" className="text-link dark-link">Explore the photo journal <Arrow diagonal /></a>
       </div>
     </div></div>

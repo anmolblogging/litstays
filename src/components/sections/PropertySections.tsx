@@ -1,7 +1,5 @@
 import Image from 'next/image';
-import { site } from '@/lib/site-content';
 import { Reveal } from '../ui/Reveal';
-import { Arrow, BrandMark, PropertyIcon } from '../ui/Icons';
 import { IntroSlideshow } from './IntroSlideshow';
 import { IntroFade } from '../ui/IntroFade';
 
@@ -9,46 +7,19 @@ export function IntroductionSection() {
   return (
     <section className="introduction section-padding" id="introduction" aria-labelledby="introduction-heading">
       <div className="intro-layout">
-        <div className="intro-heading">
-          <IntroFade className="intro-heading-meta" duration={.8}><p className="eyebrow">A PLACE TO JUST BE</p><span>01 / THE FEELING</span></IntroFade>
-          <IntroFade as="h2" id="introduction-heading" delay={.12} duration={1.05}>A little further from <em>the everyday.</em></IntroFade>
+        <div className="intro-heading">          <IntroFade as="h2" id="introduction-heading" delay={.12} duration={1.05}>Bali is waiting <em>for you in Virar.</em></IntroFade>
         </div>
         <Reveal className="intro-portrait">
-          <Image className="intro-leaf-watermark" src="/images/intro-leaves.webp" alt="" aria-hidden="true" width={1000} height={1000} unoptimized/><IntroSlideshow />
-          <p className="intro-photo-caption"><span>THE QUIETER CORNERS</span><em>Yours to settle into.</em></p>
-        </Reveal>
+          <Image className="intro-leaf-watermark" src="/images/intro-leaves.webp" alt="" aria-hidden="true" width={1000} height={1000} unoptimized/><IntroSlideshow />        </Reveal>
         <div className="intro-copy">
-          <IntroFade as="p" className="intro-lead" delay={.2} duration={.9}>Some days call for a change of scenery.<br />Others, simply a change of pace.</IntroFade>
-          <IntroFade as="p" delay={.32} duration={1}>Leave the full calendars behind. Come for the unhurried mornings, the conversations that wander, and the pleasure of having nowhere else to be.</IntroFade>
-          <IntroFade className="intro-signature" delay={.4}><BrandMark /><span>This is <em>The LIT Stays.</em></span></IntroFade>
+          <IntroFade as="p" className="intro-lead" delay={.2} duration={.9}>Step into a world where luxury, comfort, and nature come together. At The LIT Stays, every villa is designed to transport you away from the city’s hustle and into a serene Balinese-inspired retreat — right here in Virar.</IntroFade>
+          <IntroFade as="p" delay={.28} duration={1}>From elegant tropical architecture and thoughtfully curated interiors to private pools and peaceful outdoor spaces, every corner is crafted to make you feel like you’ve escaped to Bali, without leaving Maharashtra.</IntroFade>
+          <IntroFade as="p" delay={.36} duration={1}>Whether you’re celebrating a birthday, hosting a family getaway, planning a romantic escape, or simply taking a break with friends, The LIT Stays offers an experience that feels personal, exclusive, and unforgettable.</IntroFade>
+          <IntroFade as="p" delay={.44} duration={1}>Wake up to tranquil surroundings, spend your day by the pool, enjoy home-style meals with your loved ones, and end the evening under the stars. It’s not just a villa stay — it’s a destination where memories are made.</IntroFade>
+          <IntroFade as="p" className="intro-pillars" delay={.52} duration={.9}>Luxury · Comfort · Nature</IntroFade>
         </div>
       </div>
     </section>
   );
 }
 
-export function FactsSection() {
-  const amenities = [
-    { icon: 'villa' as const, label: 'Private villa' },
-    { icon: 'bed' as const, label: `${site.propertyDetails.bedrooms} bedrooms` },
-    { icon: 'bath' as const, label: `${site.propertyDetails.bathrooms} bathrooms` },
-    { icon: 'pool' as const, label: 'Private pool' },
-    { icon: 'guests' as const, label: `Up to ${site.propertyDetails.guestCapacity} guests` },
-    { icon: 'wifi' as const, label: 'Wi-Fi access' },
-  ];
-  return <section className="facts facts-amenities section-padding" id="property-details" aria-labelledby="facts-heading">
-    <div className="amenities-layout">
-      <Reveal className="amenities-copy">
-        <p className="eyebrow">VILLA ARCHWAY, AT A GLANCE</p>
-        <h2 id="facts-heading">Room for you. <em>And your kind of together.</em></h2>
-        <p className="amenities-description">Every stay is exclusive to your group. Settle into a quiet bedroom, take an afternoon dip in your private pool, and make a little space for everyone.</p>
-        <a href={site.listing} target="_blank" rel="noopener noreferrer" className="text-link amenities-link">Full property details <Arrow diagonal/></a>
-      </Reveal>
-      <Reveal className="amenities-grid-wrap" delay={.08}>
-        <ul className="amenities-grid" aria-label="Villa Archway comforts">
-          {amenities.map(amenity => <li key={amenity.icon}><PropertyIcon kind={amenity.icon}/><span>{amenity.label}</span></li>)}
-        </ul>
-      </Reveal>
-    </div>
-  </section>;
-}
