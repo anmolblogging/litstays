@@ -75,9 +75,9 @@ export function VillaDetail({ villa }: { villa: Villa }) {
         {villa.photos?.length ? <VillaGallery name={villa.name} photos={villa.photos} /> : null}
 
         <section className={`${styles.comforts} section-padding`} id="villa-comforts" aria-labelledby="amenities-heading">
+          <h2 id="amenities-heading" className={styles.comfortsHeading}>The comforts.</h2>
           {comfortPhoto && <Reveal className={styles.comfortVisual}><Image src={comfortPhoto.src} alt={comfortPhoto.alt} fill loader={villaImageLoader} unoptimized={!comfortPhoto.responsive} sizes="(max-width: 800px) 100vw, 48vw" /></Reveal>}
           <div className={styles.comfortContent}>
-            <h2 id="amenities-heading">The comforts.</h2>
             <ul className={styles.amenityGrid}>{villa.amenities.map(amenity => <li key={amenity.name} title={amenity.detail}><PropertyIcon kind={amenityIconKind(amenity.name)}/><span>{amenity.name}</span><span className="sr-only">{amenity.detail}</span></li>)}</ul>
           </div>
         </section>

@@ -75,7 +75,7 @@ export function VillaDining() {
         </ul>
         <p className={styles.priceNote}>Per person, per day. Food is optional.</p>
         <div className={styles.brochure}>
-          <PdfBrochure brochure={foodBrochure} minimal viewLabel="View full menu" />
+          <PdfBrochure brochure={foodBrochure} viewLabel="View full menu" />
         </div>
         <section className={styles.foodRules} aria-labelledby="food-rules-heading">
           <h3 id="food-rules-heading">Food Rules</h3>

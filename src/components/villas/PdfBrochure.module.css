@@ -49,3 +49,13 @@
   .view, .download { font-size: 16px; gap: 12px; }
   .footer { font-size: 15px; }
 }
+
+/* Button appearance: solid view action beside an outlined download action. */
+.actions[data-appearance='button'] { gap: 12px; }
+.actions[data-appearance='button'] .view, .actions[data-appearance='button'] .download { gap: 14px; padding: 12px 22px; border-radius: 999px; font-size: 15px; font-weight: 500; }
+.actions[data-appearance='button'] .download { border: 1px solid var(--forest); color: var(--forest); transition: background .25s ease, color .25s ease; }
+.actions[data-appearance='button'] .download:hover { background: var(--forest); color: var(--ivory); }
+.actions[data-appearance='button'] .view > svg, .actions[data-appearance='button'] .download > svg { width: 16px; height: 16px; }
+@media (max-width: 600px) {
+  .actions[data-appearance='button'] .view, .actions[data-appearance='button'] .download { padding: 11px 18px; font-size: 14px; gap: 10px; }
+}

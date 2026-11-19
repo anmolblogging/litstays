@@ -92,7 +92,7 @@ export default function AboutUsPage() {
           <h2 id="founder-heading">{founder.name}</h2>
           <ul className={styles.credentials}>{founder.credentials.map(item => <li key={item}>{item}</li>)}</ul>
           <p className={styles.paragraph}>{founder.description}</p>
-          <blockquote className={styles.vision}><p>{founder.vision}</p></blockquote>
+          <p className={styles.paragraph}>{founder.vision}</p>
           <a className={styles.cta} href={site.instagramMessage} target="_blank" rel="noopener noreferrer">Plan your stay <Arrow diagonal /></a>
         </div>
       </section>
