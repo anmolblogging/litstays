@@ -1,16 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { navigation } from '@/lib/site-content';
+import { menuLinks } from '@/lib/site-content';
 import { Arrow } from '../ui/Icons';
 import { BrandLogo } from '../ui/BrandLogo';
 import styles from './Navigation.module.css';
 
-const navbarOrder = ['/our-story/', '/villas/villa-avante/', '/villas/villa-aurania/', '/villas/villa-archway/'];
-const navbarLinks = navigation
-  .filter(link => navbarOrder.includes(link.href))
-  .sort((a, b) => navbarOrder.indexOf(a.href) - navbarOrder.indexOf(b.href))
-  .map(link => ({ ...link, label: link.label.replace(/^Villa /, '') }));
+const navbarLinks = menuLinks;
 
 export function Navbar({ homePath = '', currentPath, light = false, enquiryHref = '#enquire' }: { homePath?: string; currentPath?: string; light?: boolean; enquiryHref?: string }) {
   const [scrolled, setScrolled] = useState(false);

@@ -47,6 +47,13 @@ export const navigation = [
   { label: 'Our Story', href: '/our-story/' },
 ] as const;
 
+// The main menu: shared by the navbar and footer so they always match.
+const menuOrder = ['/our-story/', '/villas/villa-avante/', '/villas/villa-aurania/', '/villas/villa-archway/'];
+export const menuLinks = navigation
+  .filter(link => menuOrder.includes(link.href))
+  .sort((a, b) => menuOrder.indexOf(a.href) - menuOrder.indexOf(b.href))
+  .map(link => ({ ...link, label: link.label.replace(/^Villa /, '') }));
+
 export const photos: Photo[] = [
   { id: 'living', src: '/lifestyle/approved/lounge-guests.webp', alt: 'Guests relaxing together in a villa lounge', caption: 'Room for good company', category: 'The living spaces' },
   { id: 'bedroom', src: '/lifestyle/approved/bedroom-guest.webp', alt: 'A guest enjoying a quiet moment in a villa bedroom', caption: 'Nowhere to rush to', category: 'The bedrooms' },

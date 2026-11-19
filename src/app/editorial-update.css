@@ -206,3 +206,12 @@ h1 em,h2 em,h3 em { font-weight: 400; display: inline; max-width: none; white-sp
   .intro-copy > p { font-size: 15px; line-height: 1.7; }
   .intro-copy > .intro-pillars { font-size: 19px; }
 }
+
+/* Bali intro: short pointers instead of paragraphs. */
+.intro-points { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
+.intro-points > li { position: relative; padding-left: 26px; font-size: 17px; line-height: 1.55; color: var(--ink); }
+.intro-points > li::before { content: ''; position: absolute; left: 2px; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--sage); }
+@media (max-width: 760px) {
+  .intro-points { gap: 11px; }
+  .intro-points > li { padding-left: 22px; font-size: 15px; }
+}

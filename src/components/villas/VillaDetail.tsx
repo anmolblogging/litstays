@@ -84,7 +84,7 @@ export function VillaDetail({ villa }: { villa: Villa }) {
 
         <VillaDining />
         <StayProvider><AvailabilitySection continueHref={site.instagramMessage} /></StayProvider>
-        <Footer homePath="/" datesHref={site.instagramMessage} datesLabel="Contact" />
+        <Footer homePath="/" datesHref={site.instagramMessage} />
       </div>
     </main>
   </>;

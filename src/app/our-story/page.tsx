@@ -90,7 +90,7 @@ export default function OurStoryPage() {
           <nav aria-labelledby="collection-heading">{villas.map(villa => <a href={`/villas/${villa.slug}/`} key={villa.slug}>{villa.name}<Arrow diagonal /></a>)}</nav>
         </div>
       </section>
-      <Footer homePath="/" datesHref={site.instagramMessage} datesLabel="Contact" />
+      <Footer homePath="/" datesHref={site.instagramMessage} />
     </main>
   </>;
 }
