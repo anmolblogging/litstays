@@ -1,0 +1,98 @@
+.page { background: var(--ivory); color: var(--ink); }
+.kicker { color: var(--sage); font-size: 13px; font-weight: 500; letter-spacing: .18em; line-height: 1.6; text-transform: uppercase; }
+.paragraph { max-width: 56ch; margin-top: 20px; color: var(--muted); font-size: 17px; line-height: 1.9; }
+
+/* Hero: full-bleed photograph, text anchored bottom-left. */
+.hero { position: relative; display: flex; align-items: flex-end; min-height: 100svh; overflow: hidden; background: var(--forest); color: var(--ivory); }
+.heroImage { object-fit: cover; object-position: center 40%; }
+.heroShade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.15) 35%, rgba(0,0,0,.65) 100%); }
+.heroContent { position: relative; width: 100%; padding-block: 0 clamp(48px, 7vw, 96px); }
+.heroContent > .kicker { color: var(--sand); }
+.hero h1 { max-width: 13ch; margin-top: 18px; font-size: clamp(56px, 7.4vw, 124px); line-height: .96; letter-spacing: -.035em; text-shadow: 0 2px 24px rgba(0,0,0,.3); }
+.hero h1 > em { color: var(--sand); }
+.heroMeta { display: flex; flex-wrap: wrap; gap: 10px 0; max-width: none; margin-top: 34px; padding-top: 22px; border-top: 1px solid rgba(var(--ivory-rgb), .3); font-size: 14px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
+.heroMeta > span + span::before { content: ''; display: inline-block; width: 5px; height: 5px; margin: 0 18px; border-radius: 50%; background: var(--sand); vertical-align: middle; }
+
+/* Story: photo column beside the text. */
+.story { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 9%; align-items: start; padding-block: clamp(80px, 9vw, 140px); }
+.storyVisual { position: sticky; top: 110px; }
+.storyPhoto { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--sand); }
+.storyPhoto img { object-fit: cover; }
+.storyCaption { display: flex; align-items: baseline; gap: 14px; margin-top: 16px; font: 400 21px/1.3 var(--font-serif), Georgia, serif; }
+.storyCaption > span { color: var(--sage); font: 500 13px/1 var(--font-sans), sans-serif; letter-spacing: .14em; }
+.storyCopy h2 { max-width: none; margin: 18px 0 28px; font-size: clamp(48px, 5vw, 80px); line-height: 1; letter-spacing: -.035em; }
+.storyCopy h2 > em { display: block; color: var(--forest); }
+.storyCopy > .paragraph:first-of-type::first-letter { float: left; margin: 6px 12px 0 0; color: var(--forest); font: 400 76px/.8 var(--font-serif), Georgia, serif; }
+.regions { margin-top: 40px; padding-top: 26px; border-top: 1px solid var(--rule); }
+.regions > p { color: var(--muted); font-size: 15px; }
+.regions > ul { display: flex; flex-wrap: wrap; gap: 6px 0; margin: 12px 0 0; padding: 0; list-style: none; font: 400 clamp(24px, 2.2vw, 32px)/1.3 var(--font-serif), Georgia, serif; }
+.regions li + li::before { content: '·'; margin: 0 14px; color: var(--sage); }
+
+/* Villas: three arched portraits on sand. */
+.villas { padding-block: clamp(72px, 8vw, 120px); background: var(--sand); }
+.villasHeading { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: clamp(36px, 4vw, 56px); }
+.villasHeading h2 { font-size: clamp(46px, 5vw, 80px); line-height: 1; letter-spacing: -.035em; }
+.villasHeading h2 > em { color: var(--forest); }
+.promise { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.promise > li { padding: 8px 16px; border: 1px solid rgba(var(--ink-rgb), .3); font-size: 14px; letter-spacing: .04em; }
+.villaGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 36px); margin: 0; padding: 0; list-style: none; }
+.villaGrid > li:nth-child(2) { margin-top: clamp(28px, 4vw, 64px); }
+.villaCard { display: block; }
+.villaPhoto { position: relative; display: block; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 999px 999px 0 0; background: var(--sage); }
+.villaPhoto img { object-fit: cover; transition: transform 1.2s var(--ease); }
+.villaCard:hover .villaPhoto img { transform: scale(1.05); }
+.villaName { display: flex; align-items: center; gap: 14px; margin-top: 18px; font: 400 clamp(24px, 2.2vw, 32px)/1.2 var(--font-serif), Georgia, serif; }
+.villaName > span { color: var(--muted); font: 500 13px/1 var(--font-sans), sans-serif; letter-spacing: .1em; }
+.villaName > svg { width: 18px; height: 18px; margin-left: auto; transition: transform .3s var(--ease); }
+.villaCard:hover .villaName > svg { transform: translate(3px, -3px); }
+
+/* Trust: big number over the landscape. */
+.trust { position: relative; display: grid; place-items: center; min-height: clamp(480px, 70vh, 720px); overflow: hidden; color: var(--ivory); text-align: center; }
+.trustImage { object-fit: cover; }
+.trustShade { position: absolute; inset: 0; background: rgba(var(--forest-rgb), .62); }
+.trustContent { position: relative; display: flex; flex-direction: column; align-items: center; }
+.trustContent > svg { width: 40px; height: 52px; color: var(--sand); }
+.trustNumber { max-width: none; margin-top: 18px; font: 400 clamp(96px, 15vw, 220px)/.9 var(--font-serif), Georgia, serif; letter-spacing: -.04em; }
+.trustLabel { max-width: none; margin-top: 16px; font: 400 clamp(24px, 2.4vw, 36px)/1.25 var(--font-serif), Georgia, serif; }
+.trustLabel > em { color: var(--sand); }
+
+/* Founder. */
+.founder { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 9%; align-items: center; padding-block: clamp(80px, 9vw, 140px); }
+.founderPhoto { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 999px 999px 0 0; background: var(--sand); }
+.founderPhoto img { object-fit: cover; }
+.founderCopy h2 { margin-top: 16px; font-size: clamp(48px, 5vw, 80px); line-height: 1; letter-spacing: -.035em; }
+.credentials { display: flex; flex-wrap: wrap; gap: 8px 0; margin: 20px 0 6px; padding: 0; list-style: none; color: var(--forest); font-size: 14px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
+.credentials li + li::before { content: '/'; margin: 0 12px; color: var(--sage); }
+.vision { margin: 32px 0 0; padding: 26px 0 0; border-top: 1px solid var(--rule); }
+.vision > p { max-width: 28ch; font: italic 400 clamp(26px, 2.4vw, 36px)/1.3 var(--font-serif), Georgia, serif; letter-spacing: -.01em; }
+.cta { display: inline-flex; align-items: center; gap: 28px; min-height: 52px; margin-top: 36px; padding: 14px 24px; background: var(--forest); color: var(--ivory); font-size: 14px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; transition: background .3s; }
+.cta:hover { background: var(--ink); }
+.cta > svg { width: 18px; height: 18px; }
+
+@media (max-width: 1000px) {
+  .villasHeading { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 860px) {
+  .story, .founder { grid-template-columns: 1fr; gap: 44px; }
+  .storyVisual { position: static; width: min(100%, 460px); }
+  .founderVisual { width: min(100%, 460px); }
+  .villaGrid { grid-template-columns: 1fr; gap: 40px; }
+  .villaGrid > li { width: min(100%, 420px); }
+  .villaGrid > li:nth-child(2) { margin-top: 0; justify-self: end; }
+  .storyCopy h2 { font-size: clamp(40px, 11vw, 52px); }
+}
+@media (max-width: 600px) {
+  .hero h1 { font-size: clamp(46px, 12.5vw, 64px); }
+  .heroMeta { flex-direction: column; gap: 6px; font-size: 12px; }
+  .heroMeta > span + span::before { display: none; }
+  .villasHeading h2 { font-size: 42px; }
+  .founderCopy h2 { font-size: 44px; }
+  .paragraph { font-size: 16px; }
+  .regions > ul { font-size: 22px; }
+  .regions li + li::before { margin: 0 9px; }
+  .credentials { font-size: 12px; }
+  .vision > p { font-size: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .villaPhoto img, .villaName > svg { transition: none; }
+}

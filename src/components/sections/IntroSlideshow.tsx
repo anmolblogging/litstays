@@ -91,7 +91,7 @@ export function IntroSlideshow() {
     className="intro-portrait-image image-frame intro-slideshow"
     role="region"
     aria-roledescription="carousel"
-    aria-label="Villa Archway photo slideshow"
+    aria-label="Bali-inspired villa photo slideshow"
     data-active-slide={introSlides[active].id}
     data-playing={playing}
     style={{ '--intro-crossfade-duration': `${introSlideshow.crossfadeMs}ms` } as CSSProperties}

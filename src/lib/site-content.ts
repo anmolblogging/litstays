@@ -45,10 +45,11 @@ export const navigation = [
   { label: 'The experience', href: '#experience' },
   ...villas.map(villa => ({ label: villa.name, href: `/villas/${villa.slug}/` })),
   { label: 'Our Story', href: '/our-story/' },
+  { label: 'About Us', href: '/about-us/' },
 ] as const;
 
 // The main menu: shared by the navbar and footer so they always match.
-const menuOrder = ['/our-story/', '/villas/villa-avante/', '/villas/villa-aurania/', '/villas/villa-archway/'];
+const menuOrder = ['/about-us/', '/our-story/', '/villas/villa-avante/', '/villas/villa-aurania/', '/villas/villa-archway/'];
 export const menuLinks = navigation
   .filter(link => menuOrder.includes(link.href))
   .sort((a, b) => menuOrder.indexOf(a.href) - menuOrder.indexOf(b.href))

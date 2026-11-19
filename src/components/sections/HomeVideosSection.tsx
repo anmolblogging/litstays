@@ -25,9 +25,8 @@ export function HomeVideosSection() {
 
   return <section id="videos" className={`${styles.section} section-padding`} aria-labelledby="videos-heading">
     <div className={styles.heading}>
-      <p className={`eyebrow ${styles.eyebrow}`}>The LIT Stays on film</p>
-      <h2 id="videos-heading">Press play on <em>slow living.</em></h2>
-      <p className={styles.lead}>A closer look at the villas, the pools and the unhurried afternoons — before you arrive.</p>
+      <h2 id="videos-heading">The LIT Stays <em>on film.</em></h2>
+      <p className={styles.lead}>A closer look at the villas, the pools and the unhurried afternoons before you arrive.</p>
     </div>
 
     <div className={styles.stage}>
@@ -61,7 +60,7 @@ export function HomeVideosSection() {
                 <Image src={item.poster} alt="" fill loader={villaImageLoader} sizes="140px" />
               </span>
               <span className={styles.itemText}>
-                <span className={styles.itemKind}>{String(index + 1).padStart(2, '0')} — {item.kind}</span>
+                <span className={styles.itemKind}>{String(index + 1).padStart(2, '0')} · {item.kind}</span>
                 <span className={styles.itemTitle}>{item.title}</span>
                 <span className={styles.itemNote}>{item.note}</span>
               </span>
