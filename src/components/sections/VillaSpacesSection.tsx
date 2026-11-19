@@ -73,12 +73,7 @@ export function VillaSpacesSection() {
           tabIndex={active === index ? 0 : -1}
         >
           <Image ref={node => { images.current[index] = node; }} src={space.photo.src} alt={space.photo.alt} style={'position' in space.photo ? { objectPosition: space.photo.position } : undefined} fill sizes="(max-width: 760px) 100vw, 65vw" loading={requested === index ? 'eager' : 'lazy'} unoptimized />
-          <div className={styles.shade} />
           <div className={styles.photoTop} aria-hidden="true"><span>0{index + 1} / {total}</span></div>
-          <div className={styles.caption}>
-            <h3>{space.title}</h3>
-            <p className={styles.description}>{space.description}</p>
-          </div>
         </div>)}
       </div>
 

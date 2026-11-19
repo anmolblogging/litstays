@@ -1,7 +1,7 @@
 // The guest journey shown on /experience, from the first glimpse to a slow goodbye.
 // Photos come from the LIT Website Images, Lifestyle and Catalogue shoots.
 export const experience = {
-  hero: { src: '/archway/optimized/archway-aerial-1-1920.webp', alt: 'An aerial view of the villas set among green hills in Virar' },
+  hero: { src: '/archway/optimized/archway-51-1920.webp', alt: 'Villa Archway and its neighbouring villa lit up warmly at dusk' },
   closing: { src: '/archway/optimized/archway-aerial-4-1920.webp', alt: 'The villas lit up at dusk beneath the hills' },
   steps: [
     { time: 'Check-in', title: 'You arrive', description: 'The gate opens onto a quiet, green path. Bags down, shoulders down. The city is already behind you.', photo: { src: '/experience/arrive.webp', alt: 'A couple walking up the villa entrance path with their luggage' } },
@@ -19,8 +19,8 @@ export const experience = {
     introduction: 'A memorable stay is about more than a beautiful villa. It’s also about the people who help you feel welcome, comfortable and at ease.',
     values: [
       { title: 'A warm welcome', description: 'Helping you find your feet, settle in and start enjoying your time away.', photo: { src: '/experience/team-welcome.webp', alt: 'Guests arriving at the villa door with their bags' } },
-      { title: 'Care in the details', description: 'The rooms, the little comforts, the spaces you share. Thoughtful preparation makes a difference.', photo: { src: '/experience/team-details.webp', alt: 'A bedroom prepared with fresh linen and drinks on a tray' } },
-      { title: 'A personal touch', description: 'A familiar face and a helping hand, so your stay feels a little more like home.', photo: { src: '/experience/team-personal.webp', alt: 'Guests being looked after as they settle in on the sofa' } },
+      { title: 'Care in the details', description: 'The rooms, the little comforts, the spaces you share. Thoughtful preparation makes a difference.', photo: { src: '/experience/team-details-tray.webp', alt: 'The LIT Stays welcome kit of towels, toiletries and slippers laid out on a tray' } },
+      { title: 'A personal touch', description: 'A familiar face and a helping hand, so your stay feels a little more like home.', photo: { src: '/experience/team-personal-sharing.webp', alt: 'A host serving food to friends gathered around the dining table' } },
     ],
   },
 };
