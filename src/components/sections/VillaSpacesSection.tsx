@@ -16,6 +16,7 @@ const spaces = [
   { photo: photos[7], label: 'Game room', prelude: 'A LITTLE FRIENDLY COMPETITION', title: <>One more <em>round.</em></>, description: 'Foosball, table tennis, cards and darts. Pick a game, pick a side, and let the laughter get a little loud.', note: 'Foosball, table tennis, darts and cards for everyone.' },
   { photo: photos[6], label: 'Terrace', prelude: 'UNDER AN OPEN SKY', title: <>Let the evening <em>linger.</em></>, description: 'Warm lights, open air and a view of the trees. The best place to end the day, together, under the stars.', note: 'Open-air evenings under warm lights and the stars.' },
 ];
+const total = String(spaces.length).padStart(2, '0');
 
 export function VillaSpacesSection() {
   const [active, setActive] = useState(0);
@@ -72,9 +73,9 @@ export function VillaSpacesSection() {
           inert={active !== index}
           tabIndex={active === index ? 0 : -1}
         >
-          <div className={styles.photo}>
-            <Image ref={node => { images.current[index] = node; }} src={space.photo.src} alt={space.photo.alt} fill sizes="(max-width: 760px) 100vw, 65vw" loading={requested === index ? 'eager' : 'lazy'} unoptimized />
-          </div>
+          <Image ref={node => { images.current[index] = node; }} src={space.photo.src} alt={space.photo.alt} fill sizes="(max-width: 760px) 100vw, 65vw" loading={requested === index ? 'eager' : 'lazy'} unoptimized />
+          <div className={styles.shade} />
+          <div className={styles.photoTop} aria-hidden="true"><span>A CLOSER LOOK AT THE SLOW LIFE</span><span>0{index + 1} / {total}</span></div>
           <div className={styles.caption}>
             <p className={styles.prelude}>{space.prelude}</p>
             <h3>{space.title}</h3>

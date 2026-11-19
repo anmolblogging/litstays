@@ -2,6 +2,7 @@
   padding-block: 34px 64px;
   background: var(--ivory);
 }
+
 .heading {
   display: grid;
   grid-template-columns: 1fr;
@@ -9,22 +10,26 @@
   text-align: center;
   margin-bottom: 40px;
 }
+
 .heading :global(.eyebrow) { margin-bottom: 20px; font-size: 14px; }
 .heading h2 { max-width: none; white-space: nowrap; font-size: clamp(48px, 5.1vw, 82px); line-height: .98; }
 .introduction { display: flex; align-items: center; gap: 24px; padding-bottom: 5px; }
 .introduction > p { max-width: 30ch; color: var(--muted); font-size: 17px; line-height: 1.9; }
 .mark { width: 45px; height: 54px; flex-shrink: 0; color: var(--sage); }
+
 .explorer { display: grid; grid-template-columns: minmax(0, 2.45fr) minmax(250px, 1fr); gap: clamp(28px, 4vw, 64px); scroll-margin-top: 110px; }
-.stage { position: relative; display: grid; overflow: hidden; border-radius: 4px; background: var(--forest); }
+.stage { position: relative; display: grid; min-height: 570px; overflow: hidden; background: var(--forest); }
 .panel { position: relative; display: flex; flex-direction: column; grid-area: 1 / 1; min-width: 0; opacity: 0; pointer-events: none; transition: opacity 450ms ease; }
 .panel.active { opacity: 1; pointer-events: auto; z-index: 1; }
-.photo { position: relative; flex: 1; min-height: clamp(380px, 33vw, 520px); overflow: hidden; }
-.photo > img { object-fit: cover; object-position: center 65%; }
-.caption { display: flex; flex: none; flex-direction: column; padding: 26px clamp(24px, 2.6vw, 40px) 30px; color: var(--ivory); background: var(--forest); }
-.prelude { font-size: 13px; letter-spacing: .15em; line-height: 1.7; margin-bottom: 10px; color: var(--on-dark); }
-.caption h3 { font-size: clamp(30px, 2.6vw, 42px); font-weight: 400; line-height: 1.08; letter-spacing: -.02em; }
-.caption h3 em { display: inline; }
-.description { max-width: 62ch; font-size: 16px; line-height: 1.7; margin-top: 10px; color: var(--on-dark); }
+.panel > img { object-fit: cover; object-position: center; }
+.shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(var(--forest-rgb),.24), transparent 30%, rgba(var(--forest-rgb),.12) 45%, rgba(var(--forest-rgb),.85)); }
+.photoTop { position: absolute; top: 25px; left: 30px; right: 30px; display: flex; justify-content: space-between; gap: 20px; color: var(--ivory); font-size: 14px; letter-spacing: .13em; }
+.caption { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; min-height: 570px; padding: 160px clamp(26px, 3vw, 48px) 37px; color: var(--ivory); }
+.prelude { font-size: 14px; letter-spacing: .15em; line-height: 1.7; margin-bottom: 17px; }
+.caption h3 { font-size: clamp(42px, 4.3vw, 68px); font-weight: 400; line-height: .99; letter-spacing: -.025em; max-width: 15ch; }
+.caption h3 em { display: block; }
+.description { max-width: 48ch; font-size: 17px; line-height: 1.85; margin-top: 19px; color: var(--on-dark); }
+
 .sidebar { min-width: 0; display: flex; flex-direction: column; padding-top: 6px; }
 .sidebarHeading > :global(.eyebrow) { color: var(--muted); font-size: 12px; }
 .sidebarHeading > p { font: 400 clamp(30px, 2.7vw, 42px)/1.06 var(--font-serif), Georgia, serif; letter-spacing: -.02em; margin-top: 13px; }
@@ -44,14 +49,16 @@
 .footer > p { font-size: 15px; color: var(--muted); }
 .footer > p > span { font-family: var(--font-serif), Georgia, serif; font-size: 20px; margin-left: 5px; }
 .footer > a { margin-left: auto; font-size: 15px; }
+
 @media (max-width: 1100px) {
   .introduction { gap: 16px; }
   .introduction > p { font-size: 15px; }
   .explorer { grid-template-columns: minmax(0, 1.85fr) minmax(230px, 1fr); gap: 28px; }
-  .photo { min-height: 400px; }
+  .stage, .caption { min-height: 530px; }
   .tabTitle { font-size: 26px; }
   .tabs > button { gap: 12px; }
 }
+
 @media (max-width: 760px) {
   .section { padding-block: 26px 42px; }
   .heading { margin-bottom: 28px; }
@@ -61,11 +68,11 @@
   .introduction > p { max-width: none; font-size: 15px; }
   .mark { width: 32px; height: 40px; }
   .explorer { grid-template-columns: 1fr; gap: 22px; }
-  .photo { flex: none; min-height: 0; height: clamp(300px, 70vw, 420px); }
-  .caption { padding: 22px 22px 26px; }
-  .caption h3 { font-size: clamp(28px, 7vw, 36px); }
-
-  .description { font-size: 15px; }
+  .stage, .caption { min-height: 490px; }
+  .caption { padding: 150px 26px 28px; }
+  .caption h3 { font-size: clamp(44px, 8vw, 59px); }
+  .photoTop { top: 20px; left: 25px; right: 25px; font-size: 13px; }
+  .description { font-size: 16px; max-width: 42ch; }
   .sidebar { padding: 0; }
   .sidebarHeading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
   .sidebarHeading > p { font-size: 23px; margin: 0; }
@@ -80,13 +87,16 @@
   .footer { gap: 14px; margin-top: 20px; flex-wrap: wrap; }
   .footer > p > span { font-size: 19px; }
 }
+
 @media (max-width: 380px) {
-  .caption { padding-inline: 18px; }
-  .caption h3 { font-size: 27px; }
+  .stage, .caption { min-height: 460px; }
+  .caption { padding-inline: 22px; }
+  .caption h3 { font-size: 41px; }
   .tabTitle { font-size: 21px; }
   .tabs { column-gap: 14px; }
   .tabs > button { gap: 8px; }
 }
+
 @media (prefers-reduced-motion: reduce) {
   .panel, .tabTitle, .tabArrow { transition: none; }
 }

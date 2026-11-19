@@ -212,7 +212,7 @@ export function VillaBrochureBook({ name, brochure }: { name: string; brochure: 
   const step = single ? 1 : 2;
   const lastVisible = Math.min(index + step, brochure.pages);
   return <section className={`${styles.section} section-padding`} id="villa-brochure" aria-labelledby="brochure-heading">
-    <div className={styles.heading}><h2 id="brochure-heading">{name.replace(/^Villa /, '')},<br/><em>in print.</em></h2><PdfBrochure brochure={{ ...brochure, title: `${name} brochure` }} minimal viewLabel="Open PDF" /></div>
+    <div className={styles.heading}><h2 id="brochure-heading">{name.replace(/^Villa /, '')}, <em>in print.</em></h2><PdfBrochure brochure={{ ...brochure, title: `${name} brochure` }} minimal viewLabel="Open PDF" /></div>
     <div ref={track} className={styles.track} data-navigation={navigation} data-scroll-step={scrollStep}>
     <div ref={reader} className={styles.reader}>
     <div className={styles.paper}>
