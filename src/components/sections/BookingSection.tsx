@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { site } from '@/lib/site-content';
+import Image from 'next/image';
 import { Arrow } from '../ui/Icons';
 import { Reveal } from '../ui/Reveal';
 import { useStay } from '../availability/StayProvider';
@@ -77,7 +78,7 @@ export function BookingSection() {
   const channel = site.contact.whatsapp ? 'WhatsApp' : site.contact.email ? 'email' : 'Instagram';
   return <section className="booking section-padding" id="enquire" aria-labelledby="booking-heading">
     <Reveal className="booking-title"><h2 id="booking-heading">Your next escape starts <em>here.</em></h2></Reveal>
-    <div className="booking-intro"><Reveal><h3 className="booking-form-heading">Tell us what you have <em>in mind.</em></h3><p>A few days away. Your favourite people. Share the basics and we’ll get back to you with availability and pricing.</p></Reveal></div>
+    <div className="booking-intro"><Reveal><h3 className="booking-form-heading">Tell us what you have <em>in mind.</em></h3><p>A few days away. Your favourite people. Share the basics and we’ll get back to you with availability and pricing.</p><Image className="booking-intro-image" src="/images/enquiry-pool.jpg" alt="Friends relaxing by the private pool at The LIT Stays, Virar" width={1000} height={1000} sizes="(max-width: 800px) 100vw, 36vw" unoptimized/></Reveal></div>
     <Reveal className="booking-form-wrap"><noscript><style>{`.booking-form { display: none; }`}</style><p>Tell us your dates and group size on Instagram to enquire about your stay.</p><a className="button button-ivory" href={site.instagramMessage}>Enquire on Instagram <Arrow diagonal/></a></noscript>
       <form ref={form} onSubmit={prepare} className="booking-form">
         <div className="form-row"><label>Your name<input name="name" autoComplete="name" placeholder="What should we call you?" maxLength={100} required/></label><label>Email or phone<input name="contact" autoComplete="email" placeholder="Let’s keep in touch" maxLength={150} required/></label></div>

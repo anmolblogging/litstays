@@ -21,8 +21,8 @@ export const aboutUs = {
     founder: { src: '/archway/optimized/archway-36-1920.webp', alt: 'Woven chairs on a villa balcony as the sun sets through the trees' },
   },
   villas: [
-    { name: 'Villa Archway', slug: 'villa-archway', src: '/archway/optimized/archway-40-1920.webp', alt: 'Villa Archway’s rooftop terrace lit by warm wall lights at dusk' },
-    { name: 'Villa Avante', slug: 'villa-avante', src: '/avante/optimized/avante-38-1920.webp', alt: 'Villa Avante’s illuminated entrance and balconies under a blue evening sky' },
+    { name: 'Villa Archway', slug: 'villa-archway', src: '/archway/optimized/archway-34-1920.webp', alt: 'Villa Archway’s private swimming pool and waterfall lit up at night beside a poolside table' },
+    { name: 'Villa Avante', slug: 'villa-avante', src: '/avante/optimized/avante-23-1920.webp', alt: 'Villa Avante’s private pool and waterfall glowing at dusk beside an outdoor dining table' },
     { name: 'Villa Aurania', slug: 'villa-aurania', src: '/aurania/optimized/aurania-8836-1920.webp', alt: 'Villa Aurania’s garden lit up at night with colourful seating' },
   ],
 };

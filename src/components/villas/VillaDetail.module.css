@@ -80,85 +80,44 @@
   .discover { margin-top: 12px; }
 }
 
-/* Villa introduction: an editorial opening and one compact details row. */
-.overview { padding-block: 42px 8px; scroll-margin-top: 80px; }
-.overviewIntro {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  align-items: end;
-  gap: 18px clamp(35px, 5vw, 80px);
-  max-width: 1440px;
-  margin-inline: auto;
-}
-.location { grid-column: 1 / -1; color: var(--muted); font-size: 17px; line-height: 1.6; }
-.location > span { padding-inline: 8px; color: var(--sage); }
-.overviewIntro h2 { min-width: 0; font-size: clamp(62px, 6vw, 90px); line-height: .98; letter-spacing: -.04em; }
-.overviewIntro h2 > span, .overviewIntro h2 > em { display: block; }
+/* Villa introduction: a centred one-line headline above a forest details panel. */
+.overview { padding-block: clamp(56px, 7vw, 100px) 16px; scroll-margin-top: 80px; }
+.overviewIntro { max-width: 1440px; margin-inline: auto; text-align: center; }
+.location { display: flex; justify-content: center; align-items: center; gap: 16px; max-width: none; margin: 0 0 clamp(18px, 2vw, 26px); color: var(--sage); font-size: 13px; font-weight: 500; line-height: 1.6; letter-spacing: .17em; text-transform: uppercase; }
+.locationRule { width: 36px; height: 1px; background: currentColor; opacity: .7; }
+.overviewIntro h2 { max-width: none; margin: 0; font-size: clamp(20px, 5.2vw, 80px); line-height: 1.05; letter-spacing: -.035em; white-space: nowrap; }
 .overviewIntro h2 > em { color: var(--forest); }
-.overviewDescription { max-width: 40ch; margin: 0; padding-bottom: 6px; color: var(--muted); font-size: 19px; line-height: 1.8; }
+.overviewDescription { max-width: 46ch; margin: clamp(18px, 2vw, 26px) auto 0; color: var(--muted); font-size: clamp(16px, 1.3vw, 19px); line-height: 1.75; text-wrap: balance; }
+.overviewDescription::before { content: ""; display: block; width: 44px; height: 1px; margin: 0 auto clamp(18px, 2vw, 24px); background: var(--sage); opacity: .6; }
 .staySummary {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  gap: 36px;
-  max-width: 1440px;
-  margin: 32px auto 0;
-  padding-block: 25px;
-  border-block: 1px solid var(--rule);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  max-width: 1240px;
+  margin: clamp(40px, 4.6vw, 64px) auto 0;
+  padding: clamp(10px, 1.2vw, 16px);
+  background: var(--forest);
+  color: var(--ivory);
+  border-radius: 6px;
 }
-.stayFacts, .rates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; margin: 0; padding: 0; }
-.stayFacts > div, .rates > div { min-width: 0; }
-.stayFacts dt, .rates dt { color: var(--muted); font-size: 17px; line-height: 1.6; }
-.stayFacts dd, .rates dd { margin: 13px 0 0; }
-.stayFacts dd { font: 400 var(--fact-size, 44px)/1 var(--font-serif), Georgia, serif; letter-spacing: -.025em; }
-.stayFacts .outdoorFact { font-size: var(--fact-size, 44px); line-height: 1; }
-.quote { min-width: 0; padding-left: 36px; border-left: 1px solid var(--rule); }
-.rates > div:only-child { grid-column: 1 / -1; }
-.price { display: flex; align-items: baseline; gap: 4px; font: 400 var(--fact-size, 44px)/1 var(--font-serif), Georgia, serif; letter-spacing: -.03em; white-space: nowrap; }
-.rates > div + div .price { font-size: 39px; }
-.currency { font: 400 .45em/1 var(--font-sans), sans-serif; letter-spacing: 0; }
-.priceRequest { display: block; align-self: baseline; font: 400 36px/1.15 var(--font-serif), Georgia, serif; letter-spacing: -.025em; }
-.deposit, .quoteNote { margin: 9px 0 0; color: var(--muted); font: 400 16px/1.6 var(--font-sans), sans-serif; letter-spacing: normal; }
-@media (max-width: 1100px) {
-  .overviewIntro { gap: 17px 35px; }
-  .overviewIntro h2 { font-size: clamp(55px, 6vw, 67px); }
-  .overviewDescription { font-size: 18px; }
-  .staySummary { gap: 25px; }
-  .stayFacts, .rates { column-gap: 20px; }
-  .quote { padding-left: 25px; }
-  .staySummary { --fact-size: 40px; }
-  .rates > div + div .price { font-size: 36px; }
-}
-@media (max-width: 900px) {
-  .staySummary { grid-template-columns: minmax(0, 1fr); gap: 22px; }
-  .stayFacts { padding-bottom: 22px; border-bottom: 1px solid var(--rule); }
-  .quote { border-left: 0; padding-left: 0; }
-  .staySummary { --fact-size: 44px; }
-  .rates > div + div .price { font-size: 39px; }
-}
+.staySummary > div { position: relative; display: flex; flex-direction: column; align-items: center; min-width: 0; padding: clamp(26px, 2.8vw, 38px) 20px; text-align: center; }
+.staySummary > div + div::before { content: ''; position: absolute; left: 0; top: 22%; bottom: 22%; width: 1px; background: rgba(var(--sand-rgb), .25); }
+.staySummary svg { width: 34px; height: 34px; margin-bottom: 16px; color: var(--sand); opacity: .9; }
+.staySummary dt { color: rgba(var(--sand-rgb), .8); font-size: 12px; font-weight: 500; line-height: 1.6; letter-spacing: .17em; text-transform: uppercase; }
+.staySummary dd { display: flex; justify-content: center; align-items: baseline; gap: 4px; margin: 10px 0 0; font: 400 clamp(30px, 2.9vw, 42px)/1 var(--font-serif), Georgia, serif; letter-spacing: -.02em; color: var(--ivory); white-space: nowrap; }
+.currency { font: 400 .5em/1 var(--font-sans), sans-serif; letter-spacing: 0; }
+.deposit { margin: 8px 0 0; color: rgba(var(--sand-rgb), .75); font: 400 13px/1.5 var(--font-sans), sans-serif; }
 @media (max-width: 760px) {
-  .overview { padding-top: 32px; }
-  .overviewIntro { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-  .overviewIntro h2 { font-size: clamp(50px, 8.5vw, 67px); }
-  .overviewDescription { max-width: 48ch; padding-bottom: 0; }
-  .staySummary { margin-top: 26px; }
-}
-@media (max-width: 600px) {
-  .overview { padding-top: 28px; }
-  .overviewIntro { gap: 17px; }
-  .location { font-size: 16px; }
-  .location > span { padding-inline: 5px; }
-  .overviewIntro h2 { font-size: clamp(46px, 12.3vw, 64px); }
-  .overviewDescription { font-size: 18px; line-height: 1.75; }
-  .staySummary { gap: 20px; padding-block: 21px; margin-top: 24px; }
-  .stayFacts { padding-bottom: 20px; }
-  .stayFacts, .rates { column-gap: 22px; }
-  .stayFacts dt, .rates dt { font-size: 16px; }
-  .staySummary { --fact-size: 36px; }
-  .stayFacts dd, .rates dd { margin-top: 10px; }
-  .price { gap: 3px; }
-  .rates > div + div .price { font-size: 35px; }
-  .priceRequest { font-size: 33px; }
-  .deposit, .quoteNote { margin-top: 8px; }
+  .overview { padding-top: 44px; }
+  .location { gap: 10px; font-size: 11px; }
+  .locationRule { width: 22px; }
+  .staySummary { grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); margin-top: 32px; padding: 6px 20px; }
+  .staySummary > div { display: grid; grid-template-columns: 30px 1fr; align-items: center; column-gap: 18px; padding: 20px 0; text-align: left; }
+  .staySummary > div + div::before { left: 0; right: 0; top: 0; bottom: auto; width: auto; height: 1px; }
+  .staySummary svg { grid-row: 1 / span 3; width: 28px; height: 28px; margin: 0; }
+  .staySummary dt { font-size: 11px; letter-spacing: .14em; white-space: nowrap; }
+  .staySummary dd { margin: 6px 0 0; font-size: 28px; justify-content: flex-start; }
+  .deposit { grid-column: 2; margin-top: 4px; }
 }
 
 /* Readability: a soft dark wash behind the centred title so it never blends into the facade. */

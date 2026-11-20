@@ -56,18 +56,15 @@ export function VillaDetail({ villa }: { villa: Villa }) {
       <div className={styles.content} id="villa-content">
         <section className={`${styles.overview} section-padding`} id="villa-details" aria-labelledby="overview-heading">
           <div className={styles.overviewIntro}>
-            <p className={styles.location}>{villa.style} <span aria-hidden="true">·</span> {villa.location}</p>
-            <h2 id="overview-heading"><span>{opening}{closing.length ? '.' : ''}</span>{closing.length ? <> <em>{closing.join('. ')}</em></> : null}</h2>
+            <p className={styles.location}><span>{villa.style}</span><span aria-hidden="true" className={styles.locationRule} /><span>{villa.location}</span></p>
+            <h2 id="overview-heading">{opening}{closing.length ? '.' : ''}{closing.length ? <> <em>{closing.join('. ')}</em></> : null}</h2>
             <p className={styles.overviewDescription}>{villa.description}</p>
           </div>
-          <div className={styles.staySummary}>
-            <dl className={styles.stayFacts}><div><dt>Bedrooms</dt><dd>{String(villa.bedrooms).padStart(2, '0')}</dd></div><div><dt>Your outdoors</dt><dd className={styles.outdoorFact}>{villa.hasPool ? 'Private pool' : 'Private Jacuzzi'}</dd></div></dl>
-            <aside className={styles.quote} aria-label={`${villa.name} refundable deposit`}>
-              <dl className={styles.rates}>
-                {villa.refundableDeposit !== undefined && <div><dt>Refundable deposit</dt><dd><span className={styles.price}><span className={styles.currency}>₹</span>{villa.refundableDeposit.toLocaleString('en-IN')}</span><p className={styles.deposit}>Refundable on checkout.</p></dd></div>}
-              </dl>
-            </aside>
-          </div>
+          <dl className={styles.staySummary} aria-label={`${villa.name} at a glance`}>
+            <div><PropertyIcon kind="bed" aria-hidden="true" /><dt>Bedrooms</dt><dd>{String(villa.bedrooms).padStart(2, '0')}</dd></div>
+            <div><PropertyIcon kind={villa.hasPool ? 'pool' : 'jacuzzi'} aria-hidden="true" /><dt>Your outdoors</dt><dd>{villa.hasPool ? 'Private pool' : 'Private Jacuzzi'}</dd></div>
+            {villa.refundableDeposit !== undefined && <div><PropertyIcon kind="check" aria-hidden="true" /><dt>Refundable deposit</dt><dd><span className={styles.currency}>₹</span>{villa.refundableDeposit.toLocaleString('en-IN')}</dd><p className={styles.deposit}>Returned at checkout</p></div>}
+          </dl>
         </section>
 
         <VillaBrochureBook name={villa.name} brochure={villa.brochure} />

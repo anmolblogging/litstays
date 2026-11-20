@@ -8,6 +8,7 @@ import { aboutUs } from '@/lib/about-us';
 import { site } from '@/lib/site-content';
 import villaImageLoader from '@/lib/villa-image-loader';
 import styles from './page.module.css';
+import { FounderVideo } from './FounderVideo';
 
 export const metadata: Metadata = {
   title: 'About Us | The LIT Stays',
@@ -74,8 +75,11 @@ export default function AboutUsPage() {
 
       {/* Trust: one number over the landscape. */}
       <section className={styles.trust} aria-label="Trusted by our customers">
-        <Image src={images.customers.src} alt={images.customers.alt} fill loader={villaImageLoader} sizes="100vw" className={styles.trustImage} />
-        <div className={styles.trustShade} aria-hidden="true" />
+        {/* Fixed to the viewport and clipped by the section, so the photo holds still while the section scrolls past it. */}
+        <div className={styles.trustBackdrop}>
+          <Image src={images.customers.src} alt={images.customers.alt} fill loader={villaImageLoader} sizes="100vw" className={styles.trustImage} />
+          <div className={styles.trustShade} aria-hidden="true" />
+        </div>
         <div className={`${styles.trustContent} section-padding`}>
           <BrandMark aria-hidden="true" />
           <p className={styles.trustNumber}>{aboutUs.customers}</p>
@@ -86,7 +90,9 @@ export default function AboutUsPage() {
       {/* Founder. */}
       <section className={`${styles.founder} section-padding`} aria-labelledby="founder-heading">
         <Reveal className={styles.founderVisual}>
-          <div className={styles.founderPhoto}><Image src={images.founder.src} alt={images.founder.alt} fill loader={villaImageLoader} sizes="(max-width: 860px) 90vw, 40vw" /></div>
+          <div className={styles.founderPhoto}>
+            <FounderVideo src="/videos/founder.mp4" poster="/videos/founder-poster.jpg" label={`A film about ${founder.name}, founder of The LIT Stays`} />
+          </div>
         </Reveal>
         <div className={styles.founderCopy}>
           <h2 id="founder-heading">{founder.name}</h2>

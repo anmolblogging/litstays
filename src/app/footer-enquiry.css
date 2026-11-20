@@ -37,3 +37,7 @@
 .whatsapp-float:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 @media (max-width: 600px) { .whatsapp-float { width: 50px; height: 50px; } .whatsapp-float svg { width: 25px; height: 25px; } }
 @media (prefers-reduced-motion: reduce) { .whatsapp-float { transition: none; } }
+
+/* Enquiry intro image under "Tell us what you have in mind." */
+.booking-intro-image { display: block; width: 100%; max-width: 440px; height: auto; margin-top: 32px; }
+@media (max-width: 800px) { .booking-intro-image { max-width: 380px; margin-top: 26px; } }

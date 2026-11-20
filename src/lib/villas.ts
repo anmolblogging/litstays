@@ -53,7 +53,7 @@ export const villas: Villa[] = [
     heroImage: { src: '/avante/optimized/avante-38-1920.webp', alt: 'Villa Avante’s illuminated entrance and balconies under a blue evening sky', width: 1920, height: 1282, position: 'center top', mobilePosition: '51% top', responsive: true, foregroundMask: '/images/avante-hero-mask.svg', sky: '#075491' },
     photos: avantePhotos,
     brochure: { href: '/Avante.pdf', filename: 'Avante.pdf', cover: '/brochures/avante-cover.webp', pages: 18, previewBase: '/brochures/avante' },
-    refundableDeposit: 10000,
+    refundableDeposit: 8000,
     priceIncludes: 'The price includes the stay and amenities only.',
     amenities: [
       { name: 'Up to 15 guests', detail: 'An exclusive villa stay for your group.' },
@@ -85,7 +85,7 @@ export const villas: Villa[] = [
     heroImage: { src: '/aurania/optimized/aurania-8806-1920.webp', alt: 'Villa Aurania’s red-roofed exterior and entrance courtyard surrounded by trees', width: 1920, height: 1280, position: 'center top', mobilePosition: '58% top', responsive: true, foregroundMask: '/images/aurania-hero-mask.svg', sky: '#bbb6ba' },
     photos: auraniaPhotos,
     brochure: { href: '/Villa%20Aurania.pdf', filename: 'Villa Aurania.pdf', cover: '/brochures/aurania-cover.webp', pages: 16, previewBase: '/brochures/aurania' },
-    refundableDeposit: 10000,
+    refundableDeposit: 3000,
     priceIncludes: 'The price includes the stay and amenities only.',
     amenities: [
       { name: 'Up to 15 guests', detail: 'An exclusive villa stay for your group.' },
@@ -118,7 +118,7 @@ export const villas: Villa[] = [
     cardImage: { src: '/archway/optimized/archway-53-1920.webp', alt: 'Villa Archway’s arched facade and garden wall lit up under an evening sky' },
     heroImage: { src: '/archway/optimized/archway-54-1920.webp', alt: 'Villa Archway’s sunlit arched facade and balconies beside a tall palm', width: 1920, height: 1288, position: 'center top', mobilePosition: '48% top', responsive: true, foregroundMask: '/images/archway-hero-mask.svg', sky: '#509bd0' },
     photos: archwayPhotos,
-    refundableDeposit: 10000,
+    refundableDeposit: 8000,
     brochure: { href: '/Archway.pdf', filename: 'Archway.pdf', cover: '/brochures/archway-cover.webp', pages: 20, previewBase: '/brochures/archway' },
     food: villaDining,
     amenities: [

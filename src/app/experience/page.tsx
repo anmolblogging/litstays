@@ -60,7 +60,6 @@ export default function ExperiencePage() {
       <section id="team" className={`${styles.team} section-padding`} aria-labelledby="team-heading">
         <div className={styles.teamHeading}>
           <h2 id="team-heading">Good people. <em>Thoughtful stays.</em></h2>
-          <p>{team.introduction}</p>
         </div>
         <ul className={styles.teamCards}>{team.values.map((value, index) => <li key={value.title}>
           <Reveal className={styles.teamPhoto} delay={index * .08}><Image src={value.photo.src} alt={value.photo.alt} fill loader={villaImageLoader} sizes="(max-width: 760px) 90vw, 30vw" /></Reveal>
