@@ -1,0 +1,17 @@
+/* Phone-only refinements. Loaded last; nothing here applies above 760px, so desktop is untouched. */
+
+/* Section headings stay on one line, sized to the column width.
+   The italic <em> inside a heading follows the heading's own wrapping (editorial-update.css forces it to wrap). */
+@media (max-width: 760px) {
+  h2 em, h3 em { white-space: inherit; }
+  .availability-section .availability-intro h2 { max-width: none; white-space: nowrap; font-size: min(50px, calc((100vw - 2 * var(--gutter)) * .111)); }
+}
+@media (max-width: 640px) {
+  .booking .booking-title h2 { white-space: nowrap; font-size: min(56px, calc((100vw - 2 * var(--gutter)) * .093)); }
+}
+@media (max-width: 600px) {
+  .booking-intro .booking-form-heading { white-space: nowrap; font-size: min(32px, calc((100vw - 2 * var(--gutter)) * .085)); }
+
+  /* Enquiry form: text fields get the full width so placeholders aren't cut off; the date pair stays side by side. */
+  .booking-form .form-row:not(:has(input[type='date'])) { grid-template-columns: minmax(0, 1fr); }
+}

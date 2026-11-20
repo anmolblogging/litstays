@@ -114,3 +114,21 @@
 @media (prefers-reduced-motion: reduce) {
   .villaPhoto img, .villaName > svg { transition: none; }
 }
+
+/* Phone-only refinements. */
+@media (max-width: 760px) {
+  /* Section headings stay on one line, sized to the column. */
+  .storyCopy h2 { white-space: nowrap; font-size: min(52px, calc((100vw - 2 * var(--gutter)) * .074)); }
+  .storyCopy h2 > em { display: inline; }
+}
+@media (max-width: 600px) {
+  .villasHeading h2 { white-space: nowrap; font-size: min(42px, calc((100vw - 2 * var(--gutter)) * .114)); }
+  .founderCopy h2 { white-space: nowrap; font-size: min(44px, calc((100vw - 2 * var(--gutter)) * .135)); }
+  /* Separator dot trails each place, so a wrapped line never starts with a stray "·". */
+  .regions li + li::before { content: none; }
+  .regions li:not(:last-child)::after { content: '·'; margin: 0 9px; color: var(--sage); }
+  /* Credential chips were 10px; lift them to a readable size. */
+  .credentials li { font-size: 11px; }
+  /* "Watch the story" sits over a bright frame; give it a soft shadow so it reads. */
+  .founderPlayLabel { text-shadow: 0 1px 10px rgba(0, 0, 0, .75); }
+}

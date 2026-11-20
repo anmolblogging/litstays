@@ -57,3 +57,8 @@
 @media (prefers-reduced-motion: reduce) {
   .villaCard, .villaCardImage, .cta, .cta > svg { transition: none; }
 }
+
+/* Phone: keep "Three villas. One slower way to stay." on one line, sized to the column. */
+@media (max-width: 640px) {
+  .heading h2 { white-space: nowrap; font-size: min(48px, calc((100vw - 2 * var(--gutter)) * .075)); }
+}

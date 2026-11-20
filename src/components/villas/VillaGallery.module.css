@@ -110,3 +110,8 @@
   .controls > span { min-width: 61px; }
   .controls > button { width: 38px; height: 38px; }
 }
+
+/* Phone: keep "Picture yourself here." on one line, sized to the column. */
+@media (max-width: 600px) {
+  .heading h2 { max-width: none; white-space: nowrap; font-size: min(49px, calc((100vw - 2 * var(--gutter)) * .125)); }
+}

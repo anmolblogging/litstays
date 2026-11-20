@@ -58,3 +58,8 @@
   .turnSheet, .underPage { display: none; }
   .controls > button { transition: none; }
 }
+
+/* Phone: keep the page-turn arrows clear of the floating WhatsApp button (bottom-right). */
+@media (min-width: 381px) and (max-width: 700px) {
+  .footer { padding-right: 58px; }
+}

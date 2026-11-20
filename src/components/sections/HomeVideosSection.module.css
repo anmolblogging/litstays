@@ -71,3 +71,8 @@
   .cover img, .inset, .item, .item::before, .playDisc { transition: none; animation: none; }
 }
 video.player { object-fit: contain; background: #1e2a1c; cursor: auto; }
+
+/* Phone: keep "The LIT Stays on film." on one line, sized to the column. */
+@media (max-width: 600px) {
+  .heading h2 { white-space: nowrap; font-size: min(46px, calc((100vw - 2 * var(--gutter)) * .117)); }
+}

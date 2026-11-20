@@ -174,3 +174,8 @@
 @media (prefers-reduced-motion: reduce) {
   .image > img, .terms > summary > span { transition: none; }
 }
+
+/* Phone: keep "Good food. Great company." on one line, sized to the column. */
+@media (max-width: 760px) {
+  .heading h2 { white-space: nowrap; font-size: min(76px, calc((100vw - 2 * var(--gutter)) * .098)); }
+}

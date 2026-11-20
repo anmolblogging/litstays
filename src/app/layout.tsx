@@ -18,6 +18,7 @@ import { HeadingSelection } from '@/components/ui/HeadingSelection';
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
 import './footer-enquiry.css';
 import './type-scale.css';
+import './mobile-refinements.css';
 
 const serif = localFont({ src: '../../public/fonts/cormorant-garamond.woff2', style: 'normal', weight: '300 700', variable: '--font-serif', display: 'swap', preload: true });
 const sans = localFont({ src: '../../public/fonts/manrope.woff2', weight: '400 700', variable: '--font-sans', display: 'swap', preload: true });

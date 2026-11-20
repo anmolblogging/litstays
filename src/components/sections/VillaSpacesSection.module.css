@@ -101,3 +101,8 @@
   .panel, .tabTitle, .tabArrow { transition: none; }
 }
 .photoTop { text-shadow: 0 1px 10px rgba(0,0,0,.55); }
+
+/* Phone: keep "Designed for time well spent." on one line, sized to the column. */
+@media (max-width: 760px) {
+  .heading h2 { max-width: none; white-space: nowrap; font-size: min(68px, calc((100vw - 2 * var(--gutter)) * .091)); }
+}

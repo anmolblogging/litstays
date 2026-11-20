@@ -28,3 +28,9 @@
   .header { gap: 8px; }
   .header :global(.nav-enquire) { font-size: 15px; gap: 6px; white-space: nowrap; }
 }
+
+/* Phone: taller footer links so they are comfortable to tap; row gap folded into the padding. */
+@media (max-width: 600px) {
+  .footer :global(.footer-main) nav { row-gap: 0; }
+  .footer :global(.footer-main) nav a { padding-block: 8px; }
+}
