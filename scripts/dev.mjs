@@ -9,7 +9,7 @@ async function findPort(first) {
     const available = await new Promise(resolve => {
       const probe = createServer();
       probe.once('error', () => resolve(false));
-      probe.listen(port, '127.0.0.1', () => probe.close(() => resolve(true)));
+      probe.listen(port, '0.0.0.0', () => probe.close(() => resolve(true)));
     });
     if (available) return port;
   }

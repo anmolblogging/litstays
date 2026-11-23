@@ -20,7 +20,7 @@ export const experience = {
     values: [
       { title: 'A warm welcome', description: 'Helping you find your feet, settle in and start enjoying your time away.', photo: { src: '/experience/team-welcome.webp', alt: 'Guests arriving at the villa door with their bags' } },
       { title: 'Care in the details', description: 'The rooms, the little comforts, the spaces you share. Thoughtful preparation makes a difference.', photo: { src: '/experience/team-details-tray.webp', alt: 'The LIT Stays welcome kit of towels, toiletries and slippers laid out on a tray' } },
-      { title: 'A personal touch', description: 'A familiar face and a helping hand, so your stay feels a little more like home.', photo: { src: '/experience/team-personal-sharing.webp', alt: 'A host serving food to friends gathered around the dining table' } },
+      { title: 'A personal touch', description: 'A familiar face and a helping hand, so your stay feels a little more like home.', photo: { src: '/experience/team-personal-coffee.webp', alt: 'A guest smiling over a cup of coffee in a warm chat on the balcony' } },
     ],
   },
 };
