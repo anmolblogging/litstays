@@ -10,7 +10,7 @@ import { FAQSection } from '@/components/sections/FAQSection';
 import { HomeVideosSection } from '@/components/sections/HomeVideosSection';
 
 export default function Home() {
-  return <><Navbar/><main id="main">
+  return <><Navbar currentPath="/"/><main id="main">
     <StayProvider>
       <HeroSection/>
       <div className="page-surface">

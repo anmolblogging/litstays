@@ -6,7 +6,7 @@ import { Arrow } from '../ui/Icons';
 import { BrandLogo } from '../ui/BrandLogo';
 import styles from './Navigation.module.css';
 
-const navbarLinks = menuLinks;
+const navbarLinks = [{ label: 'Home', href: '/' }, ...menuLinks];
 
 export function Navbar({ homePath = '', currentPath, light = false, enquiryHref = '#enquire' }: { homePath?: string; currentPath?: string; light?: boolean; enquiryHref?: string }) {
   const [scrolled, setScrolled] = useState(false);

@@ -129,4 +129,9 @@
 /* "The comforts." heading: centred across the top, matching "Good food. Great company." */
 .comforts { row-gap: 0; }
 .comforts > .comfortsHeading { grid-column: 1 / -1; margin: 0 0 58px; color: var(--ivory); text-align: center; white-space: nowrap; font-size: clamp(68px, 6.9vw, 112px); line-height: 1.02; letter-spacing: -.04em; }
-@media (max-width: 800px) { .comforts > .comfortsHeading { margin-bottom: 36px; font-size: clamp(47px, 13.6vw, 76px); } }
+@media (max-width: 800px) {
+  /* Single column: keep space between the photo and the amenity grid */
+  .comforts { row-gap: 44px; }
+  .comforts > .comfortsHeading { margin-bottom: 0; font-size: clamp(47px, 13.6vw, 76px); }
+}
+@media (max-width: 600px) { .comforts { row-gap: 36px; } }
