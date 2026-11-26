@@ -13,6 +13,7 @@ import './room-for-you.css';
 import './gallery-masonry.css';
 import './section-watermarks.css';
 import './hero.css';
+import './date-picker.css';
 import './faq-split.css';
 import { HeadingSelection } from '@/components/ui/HeadingSelection';
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton';

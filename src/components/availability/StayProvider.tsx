@@ -1,14 +1,21 @@
 'use client';
 
 import { createContext, useContext, useState, type Dispatch, type SetStateAction, type ReactNode } from 'react';
+import type { VillaSlug } from '@/lib/availability-rules';
 
 export type StayDates = { checkIn: string; checkOut: string };
-const StayContext = createContext<{ dates: StayDates; setDates: Dispatch<SetStateAction<StayDates>>; guests: string; setGuests: Dispatch<SetStateAction<string>> } | null>(null);
+type StayContextValue = {
+  dates: StayDates; setDates: Dispatch<SetStateAction<StayDates>>;
+  guests: string; setGuests: Dispatch<SetStateAction<string>>;
+  villa: VillaSlug | ''; setVilla: Dispatch<SetStateAction<VillaSlug | ''>>;
+};
+const StayContext = createContext<StayContextValue | null>(null);
 
-export function StayProvider({ children }: { children: ReactNode }) {
+export function StayProvider({ children, villa: initialVilla = '' }: { children: ReactNode; villa?: VillaSlug | '' }) {
   const [dates, setDates] = useState<StayDates>({ checkIn: '', checkOut: '' });
   const [guests, setGuests] = useState('');
-  return <StayContext.Provider value={{ dates, setDates, guests, setGuests }}>{children}</StayContext.Provider>;
+  const [villa, setVilla] = useState<VillaSlug | ''>(initialVilla);
+  return <StayContext.Provider value={{ dates, setDates, guests, setGuests, villa, setVilla }}>{children}</StayContext.Provider>;
 }
 
 export function useStay() {

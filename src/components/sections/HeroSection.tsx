@@ -5,8 +5,9 @@ import { useRef } from 'react';
 import { LazyMotion, domAnimation, m, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import villaImageLoader from '@/lib/villa-image-loader';
 import { useStay } from '../availability/StayProvider';
-import { addDays, dateInZone } from '@/lib/availability-rules';
-import { site } from '@/lib/site-content';
+import { isVillaSlug } from '@/lib/availability-rules';
+import { villaOption, villaOptions } from '@/lib/villa-options';
+import { DatePickerField } from '../availability/DatePickerField';
 import { VillaHeroSlideshow as HeroSlideshow, type HeroSlide } from '../villas/VillaHeroSlideshow';
 
 const slides: HeroSlide[] = [
@@ -18,8 +19,8 @@ const slides: HeroSlide[] = [
 ];
 
 export function HeroSection() {
-  const { dates, setDates, guests, setGuests } = useStay();
-  const today = dateInZone(Date.now(), 'Asia/Kolkata');
+  const { dates, setDates, guests, setGuests, villa, setVilla } = useStay();
+  const capacity = villaOption(villa)?.capacity ?? Math.max(...villaOptions.map(option => option.capacity));
   const preload = getImageProps({ src: slides[0].src, width: 1536, height: 1024, alt: '', sizes: '100vw', loader: villaImageLoader }).props;
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
@@ -39,24 +40,32 @@ export function HeroSection() {
           <label>Guests <span className="hero-required" aria-hidden="true">*</span>
             <select name="heroGuests" value={guests} onChange={event => setGuests(event.target.value)} required>
               <option value="" disabled>Select guests</option>
-              {Array.from({ length: site.propertyDetails.guestCapacity }, (_, index) => index + 1).map(count => <option key={count} value={count}>{count} {count === 1 ? 'guest' : 'guests'}</option>)}
+              {Array.from({ length: capacity }, (_, index) => index + 1).map(count => <option key={count} value={count}>{count} {count === 1 ? 'guest' : 'guests'}</option>)}
             </select>
           </label>
           <label>Villas <span className="hero-required" aria-hidden="true">*</span>
-            <select name="heroVilla" defaultValue={site.property} required><option value={site.property}>{site.property}</option></select>
+            <select name="heroVilla" value={villa} onChange={event => {
+              const next = event.target.value;
+              if (!isVillaSlug(next)) return;
+              setVilla(next);
+              // Each villa has its own bookings, so dates chosen for another villa start over.
+              setDates({ checkIn: '', checkOut: '' });
+              if (Number(guests) > (villaOption(next)?.capacity ?? 0)) setGuests('');
+            }} required>
+              <option value="" disabled>Select a villa</option>
+              {villaOptions.map(option => <option key={option.slug} value={option.slug}>{option.name}</option>)}
+            </select>
           </label>
-          <label>Check-In Date <span className="hero-required" aria-hidden="true">*</span>
-            <span className="hero-date" data-empty={!dates.checkIn}>
-              <span className="hero-date-placeholder" aria-hidden="true">Check In</span>
-              <input name="heroCheckIn" type="date" value={dates.checkIn} min={today} onChange={event => setDates(current => ({ checkIn: event.target.value, checkOut: current.checkOut > event.target.value ? current.checkOut : '' }))} required/>
-            </span>
-          </label>
-          <label>Check-Out Date <span className="hero-required" aria-hidden="true">*</span>
-            <span className="hero-date" data-empty={!dates.checkOut}>
-              <span className="hero-date-placeholder" aria-hidden="true">Check Out</span>
-              <input name="heroCheckOut" type="date" value={dates.checkOut} min={dates.checkIn ? addDays(dates.checkIn, 1) : addDays(today, 1)} onChange={event => setDates(current => ({ ...current, checkOut: event.target.value }))} required/>
-            </span>
-          </label>
+          <div className="hero-booking-field">
+            <span className="hero-field-label">Check-In Date <span className="hero-required" aria-hidden="true">*</span></span>
+            <DatePickerField villa={villa} mode="checkIn" checkIn={dates.checkIn} checkOut={dates.checkOut} name="heroCheckIn" placeholder="Check In" label="Check-in date"
+              onSelect={date => setDates(current => ({ checkIn: date, checkOut: current.checkOut > date ? current.checkOut : '' }))}/>
+          </div>
+          <div className="hero-booking-field">
+            <span className="hero-field-label">Check-Out Date <span className="hero-required" aria-hidden="true">*</span></span>
+            <DatePickerField villa={villa} mode="checkOut" checkIn={dates.checkIn} checkOut={dates.checkOut} name="heroCheckOut" placeholder="Check Out" label="Check-out date"
+              onSelect={date => setDates(current => ({ ...current, checkOut: date }))}/>
+          </div>
         </div>
       </m.div></LazyMotion>
       <span className="hero-vertical" aria-hidden="true">THE ART OF DOING A LITTLE LESS</span>

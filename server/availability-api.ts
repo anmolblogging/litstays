@@ -2,6 +2,12 @@ import { createAvailabilityService, readAvailabilityConfig, AvailabilityError } 
 import { isVillaSlug } from '../src/lib/availability-rules';
 
 let service: ReturnType<typeof createAvailabilityService> | undefined;
+
+// One shared service per server process, so the enquiry check reuses the calendar cache.
+export function availabilityService() {
+  service ??= createAvailabilityService(readAvailabilityConfig(process.env));
+  return service;
+}
 const requests = new Map<string, { count: number; reset: number }>();
 
 export async function availabilityResponse(url: URL, clientKey = 'local'): Promise<Response> {
@@ -18,8 +24,7 @@ export async function availabilityResponse(url: URL, clientKey = 'local'): Promi
     const to = url.searchParams.get('to') || '';
     const villa = url.searchParams.get('villa') || '';
     if (!isVillaSlug(villa)) throw new AvailabilityError('INVALID_RANGE');
-    service ??= createAvailabilityService(readAvailabilityConfig(process.env));
-    const data = await service.get(from, to, url.searchParams.get('fresh') === '1', villa);
+    const data = await availabilityService().get(from, to, url.searchParams.get('fresh') === '1', villa);
     return Response.json(data, { headers });
   } catch (error) {
     const invalid = error instanceof AvailabilityError && error.code === 'INVALID_RANGE';
