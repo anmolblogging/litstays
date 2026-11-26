@@ -80,7 +80,7 @@ export function VillaDetail({ villa }: { villa: Villa }) {
         </section>
 
         <VillaDining />
-        <StayProvider><AvailabilitySection continueHref={site.instagramMessage} /></StayProvider>
+        <StayProvider><AvailabilitySection villa={villa.slug} continueHref={site.instagramMessage} /></StayProvider>
         <Footer homePath="/" datesHref={site.instagramMessage} />
       </div>
     </main>

@@ -54,7 +54,7 @@ export function BookingSection() {
     if (Number(values.guests) > site.propertyDetails.guestCapacity) { setError(`Villa Archway accommodates up to ${site.propertyDetails.guestCapacity} guests.`); return; }
     setSubmitting(true);
     try {
-      const availability = await fetchAvailability(values.checkIn, values.checkOut, { fresh: true });
+      const availability = await fetchAvailability(values.checkIn, values.checkOut, { villa: 'villa-archway', fresh: true });
       if (values.checkIn < dateInZone(Date.now(), availability.timeZone)) { setError('Please choose a check-in date from today onwards.'); return; }
       const conflict = stayError(values.checkIn, values.checkOut, availability.unavailable, availability.minStayNights);
       if (conflict) { setError(conflict); return; }

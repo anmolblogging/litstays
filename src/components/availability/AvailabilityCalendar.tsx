@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent } from 'react';
-import { addDays, dateInZone, isUnavailable, nightsBetween, stayError, type AvailabilityData } from '@/lib/availability-rules';
+import { addDays, dateInZone, isUnavailable, nightsBetween, stayError, type AvailabilityData, type VillaSlug } from '@/lib/availability-rules';
 import { fetchAvailability } from '@/lib/availability-client';
 import { useStay } from './StayProvider';
 import { Arrow } from '../ui/Icons';
@@ -22,7 +22,7 @@ function monthCells(month: string) {
   return Array.from({ length: Math.ceil((offset + length) / 7) * 7 }, (_, i) => i < offset || i >= offset + length ? null : `${month}-${String(i - offset + 1).padStart(2, '0')}`);
 }
 
-export default function AvailabilityCalendar({ continueHref = '#enquire' }: { continueHref?: string }) {
+export default function AvailabilityCalendar({ villa, continueHref = '#enquire' }: { villa: VillaSlug; continueHref?: string }) {
   const { dates, setDates } = useStay();
   const [month, setMonth] = useState(() => dateInZone(Date.now(), 'Asia/Kolkata').slice(0, 7));
   const [twoMonths, setTwoMonths] = useState(() => window.matchMedia('(min-width: 1050px)').matches);
@@ -41,14 +41,14 @@ export default function AvailabilityCalendar({ continueHref = '#enquire' }: { co
   const phase = requestPhase === 'ready' && (data?.range.from !== from || data?.range.to !== to) ? 'loading' : requestPhase;
   const load = useCallback((signal?: AbortSignal) => {
     const generation = ++requestGeneration.current;
-    return fetchAvailability(from, to, { signal }).then(response => {
+    return fetchAvailability(from, to, { villa, signal }).then(response => {
       if (signal?.aborted || generation !== requestGeneration.current) return;
       setData(response); setPhase('ready');
     }).catch(() => {
       if (signal?.aborted || generation !== requestGeneration.current) return;
       setData(null); setPhase('error');
     });
-  }, [from, to]);
+  }, [from, to, villa]);
   useEffect(() => {
     const media = window.matchMedia('(min-width: 1050px)');
     const onChange = () => setTwoMonths(media.matches);

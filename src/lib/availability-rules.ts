@@ -10,9 +10,24 @@ export type AvailabilityData = {
 };
 export type CalendarEvent = {
   status?: string;
+  summary?: string;
   start?: { date?: string; dateTime?: string };
   end?: { date?: string; dateTime?: string };
 };
+
+// One shared Google Calendar holds every villa's bookings. An event belongs to a
+// villa when its title contains that villa's name, e.g. "Archway – Sharma family".
+export const villaCalendarNames = { 'villa-archway': 'Archway', 'villa-avante': 'Avante', 'villa-aurania': 'Aurania' } as const;
+export type VillaSlug = keyof typeof villaCalendarNames;
+
+export function isVillaSlug(value: string): value is VillaSlug {
+  return Object.hasOwn(villaCalendarNames, value);
+}
+
+export function eventsForVilla(events: CalendarEvent[], villa: VillaSlug): CalendarEvent[] {
+  const name = new RegExp(`\\b${villaCalendarNames[villa]}\\b`, 'i');
+  return events.filter(event => name.test(event.summary ?? ''));
+}
 
 export function validDate(value: string): boolean {
   return /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(`${value}T12:00:00Z`)) && new Date(`${value}T12:00:00Z`).toISOString().slice(0, 10) === value;
@@ -37,8 +52,13 @@ export function dateInZone(instant: number | Date, timeZone: string): string {
 
 // Convert a property-local date boundary to an instant, including DST offsets.
 export function zonedMidnight(date: string, timeZone: string): string {
-  if (!validDate(date)) throw new Error('Invalid date');
-  const target = Date.parse(`${date}T00:00:00Z`);
+  return zonedInstant(date, '00:00:00', timeZone);
+}
+
+// Convert a property-local date and time (HH:MM:SS) to an instant, including DST offsets.
+export function zonedInstant(date: string, time: string, timeZone: string): string {
+  if (!validDate(date) || !/^([01]\d|2[0-3]):[0-5]\d:[0-5]\d$/.test(time)) throw new Error('Invalid date');
+  const target = Date.parse(`${date}T${time}Z`);
   let instant = target;
   const formatter = new Intl.DateTimeFormat('en-US', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' });
   for (let attempt = 0; attempt < 5; attempt++) {
@@ -72,17 +92,21 @@ export function normalizeEvents(events: CalendarEvent[], timeZone: string, from:
     let end: string;
     if (event.start?.date && event.end?.date) {
       start = event.start.date;
-      end = event.end.date;
-      if (!validDate(start) || !validDate(end) || end <= start) throw new Error('Invalid all-day event');
+      if (!validDate(start) || !validDate(event.end.date) || event.end.date <= start) throw new Error('Invalid all-day event');
+      // Google stores the day after the last shown day. The last shown day is the checkout.
+      end = addDays(event.end.date, -1);
     } else if (event.start?.dateTime && event.end?.dateTime) {
       if (![event.start.dateTime, event.end.dateTime].every(value => /(?:Z|[+-]\d{2}:\d{2})$/.test(value))) throw new Error('Missing timezone offset');
       const first = Date.parse(event.start.dateTime);
       const last = Date.parse(event.end.dateTime);
       if (!Number.isFinite(first) || !Number.isFinite(last) || last < first) throw new Error('Invalid timed event');
       start = dateInZone(first, timeZone);
-      // End is exclusive. An event ending at local midnight leaves that night free.
-      end = addDays(dateInZone(Math.max(first, last - 1), timeZone), 1);
+      // Only dates matter, not hours: the date the event ends on is the checkout.
+      end = dateInZone(last, timeZone);
     } else throw new Error('Incomplete calendar event');
+    // Check-in to checkout blocks the nights in between; the checkout date stays bookable.
+    // An event on a single date blocks that one night.
+    if (end <= start) end = addDays(start, 1);
     if (end > from && start < to) ranges.push({ start: start < from ? from : start, end: end > to ? to : end });
   }
   return mergeRanges(ranges);

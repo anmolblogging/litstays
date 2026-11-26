@@ -1,3 +1,4 @@
+import type { VillaSlug } from './availability-rules';
 import { avantePhotos } from './avante-photos';
 import { auraniaPhotos } from './aurania-photos';
 import { archwayPhotos } from './archway-photos';
@@ -13,7 +14,7 @@ export type VillaPhoto = {
 };
 
 export type Villa = {
-  slug: string;
+  slug: VillaSlug;
   name: string;
   style: string;
   bedrooms: number;

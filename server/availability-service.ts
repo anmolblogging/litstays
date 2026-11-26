@@ -1,9 +1,12 @@
 import { JWT } from 'google-auth-library';
-import { demoAvailability, normalizeEvents, validDate, zonedMidnight, nightsBetween, type AvailabilityData, type CalendarEvent } from '../src/lib/availability-rules';
+import { parseIcal } from './ical';
+import { demoAvailability, eventsForVilla, normalizeEvents, validDate, zonedMidnight, nightsBetween, type AvailabilityData, type CalendarEvent, type VillaSlug } from '../src/lib/availability-rules';
 
 type CalendarPage = { items?: CalendarEvent[]; nextPageToken?: string };
+// Raw events stay on the server: titles can hold guest names, so only date ranges are returned.
+type Loaded = { events: CalendarEvent[]; refreshedAt: string } | { demo: AvailabilityData };
 export type AvailabilityConfig = {
-  mode: 'demo' | 'google'; calendarId?: string; email?: string; privateKey?: string;
+  mode: 'demo' | 'google' | 'ical'; calendarId?: string; email?: string; privateKey?: string; icalUrl?: string;
   timeZone: string; cacheSeconds: number; refreshSeconds: number; timeoutMs: number; minimumNights: number;
 };
 export class AvailabilityError extends Error {
@@ -18,12 +21,12 @@ function numberInRange(value: string | undefined, fallback: number, min: number,
 
 export function readAvailabilityConfig(env: Record<string, string | undefined>): AvailabilityConfig {
   const mode = env.AVAILABILITY_MODE || 'demo';
-  if (!['demo', 'google'].includes(mode)) throw new AvailabilityError('NOT_CONFIGURED');
+  if (!['demo', 'google', 'ical'].includes(mode)) throw new AvailabilityError('NOT_CONFIGURED');
   const timeZone = env.PROPERTY_TIMEZONE || 'Asia/Kolkata';
   try { new Intl.DateTimeFormat('en', { timeZone }).format(); } catch { throw new AvailabilityError('NOT_CONFIGURED'); }
   return {
     mode: mode as AvailabilityConfig['mode'], calendarId: env.GOOGLE_CALENDAR_ID, email: env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    privateKey: env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, '\n'), timeZone,
+    privateKey: env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY?.replace(/\\n/g, '\n'), icalUrl: env.GOOGLE_CALENDAR_ICAL_URL?.trim() || undefined, timeZone,
     cacheSeconds: numberInRange(env.AVAILABILITY_CACHE_SECONDS, 60, 5, 300),
     refreshSeconds: numberInRange(env.AVAILABILITY_REFRESH_SECONDS, 60, 15, 300),
     timeoutMs: numberInRange(env.GOOGLE_CALENDAR_TIMEOUT_MS, 8000, 1000, 30000),
@@ -31,10 +34,12 @@ export function readAvailabilityConfig(env: Record<string, string | undefined>):
   };
 }
 
-export function createAvailabilityService(config: AvailabilityConfig, dependencies: { now?: () => number; requestPage?: (params: Record<string, string>) => Promise<CalendarPage> } = {}) {
+const MAX_FEED_BYTES = 5_000_000;
+
+export function createAvailabilityService(config: AvailabilityConfig, dependencies: { now?: () => number; requestPage?: (params: Record<string, string>) => Promise<CalendarPage>; fetchFeed?: (signal: AbortSignal) => Promise<string> } = {}) {
   const now = dependencies.now || Date.now;
-  const cache = new Map<string, { expires: number; data: AvailabilityData }>();
-  const pending = new Map<string, Promise<AvailabilityData>>();
+  const cache = new Map<string, { expires: number; data: Loaded }>();
+  const pending = new Map<string, Promise<Loaded>>();
   const generations = new Map<string, number>();
   const auth = config.email && config.privateKey ? new JWT({ email: config.email, key: config.privateKey, scopes: ['https://www.googleapis.com/auth/calendar.events.readonly'] }) : null;
   const requestPage = dependencies.requestPage || (async (params: Record<string, string>) => {
@@ -46,8 +51,38 @@ export function createAvailabilityService(config: AvailabilityConfig, dependenci
     return response.data;
   });
 
-  async function load(from: string, to: string): Promise<AvailabilityData> {
-    if (config.mode === 'demo') return demoAvailability(from, to, new Date(now()));
+  // The secret iCal address is a private link: it is only ever read here on the server.
+  const fetchFeed = dependencies.fetchFeed || (async (signal: AbortSignal) => {
+    const url = config.icalUrl ? new URL(config.icalUrl) : null;
+    if (!url || url.protocol !== 'https:') throw new AvailabilityError('NOT_CONFIGURED');
+    const response = await fetch(url, { signal, cache: 'no-store', redirect: 'follow', headers: { Accept: 'text/calendar' } });
+    if (!response.ok) throw Object.assign(new Error('Feed request failed'), { response: { status: response.status } });
+    if (Number(response.headers.get('content-length') || 0) > MAX_FEED_BYTES) throw new Error('Feed too large');
+    const text = await response.text();
+    if (text.length > MAX_FEED_BYTES) throw new Error('Feed too large');
+    return text;
+  });
+
+  async function loadIcal(from: string, to: string): Promise<Loaded> {
+    if (!dependencies.fetchFeed && !config.icalUrl) throw new AvailabilityError('NOT_CONFIGURED');
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), config.timeoutMs);
+    try {
+      const events = parseIcal(await fetchFeed(controller.signal), config.timeZone);
+      normalizeEvents(events, config.timeZone, from, to); // reject malformed calendar data before caching
+      return { events, refreshedAt: new Date(now()).toISOString() };
+    } catch (error) {
+      if (error instanceof AvailabilityError) throw error;
+      const status = (error as { response?: { status?: number } }).response?.status;
+      throw new AvailabilityError(status === 429 ? 'RATE_LIMITED' : 'UPSTREAM_UNAVAILABLE');
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  async function load(from: string, to: string): Promise<Loaded> {
+    if (config.mode === 'demo') return { demo: demoAvailability(from, to, new Date(now())) };
+    if (config.mode === 'ical') return loadIcal(from, to);
     if (!dependencies.requestPage && (!config.calendarId || !auth)) throw new AvailabilityError('NOT_CONFIGURED');
     try {
       const events: CalendarEvent[] = [];
@@ -59,16 +94,14 @@ export function createAvailabilityService(config: AvailabilityConfig, dependenci
         const result = await Promise.race([requestPage({
           timeMin: zonedMidnight(from, config.timeZone), timeMax: zonedMidnight(to, config.timeZone), timeZone: config.timeZone,
           singleEvents: 'true', showDeleted: 'false', maxResults: '2500', orderBy: 'startTime',
-          fields: 'items(status,start,end),nextPageToken', ...(pageToken ? { pageToken } : {}),
+          fields: 'items(status,summary,start,end),nextPageToken', ...(pageToken ? { pageToken } : {}),
         }), new Promise<never>((_, reject) => { timer = setTimeout(() => reject(new Error('Calendar timeout')), Math.max(1, deadline - Date.now())); })]).finally(() => clearTimeout(timer));
         if (!result || !Array.isArray(result.items ?? [])) throw new Error('Invalid response');
         events.push(...(result.items || [])); pageToken = result.nextPageToken; pages++;
         if (pages >= 8 && pageToken) throw new Error('Calendar result exceeds safe bound');
       } while (pageToken);
-      return {
-        status: 'ok', unavailable: normalizeEvents(events, config.timeZone, from, to), range: { from, to },
-        timeZone: config.timeZone, minStayNights: config.minimumNights, refreshedAt: new Date(now()).toISOString(), refreshAfterSeconds: config.refreshSeconds,
-      };
+      normalizeEvents(events, config.timeZone, from, to); // reject malformed calendar data before caching
+      return { events, refreshedAt: new Date(now()).toISOString() };
     } catch (error) {
       if (error instanceof AvailabilityError) throw error;
       const status = (error as { response?: { status?: number } }).response?.status;
@@ -76,27 +109,38 @@ export function createAvailabilityService(config: AvailabilityConfig, dependenci
     }
   }
 
+  async function loadCached(from: string, to: string, fresh: boolean): Promise<Loaded> {
+    if (!validDate(from) || !validDate(to) || to <= from || nightsBetween(from, to) > 366) throw new AvailabilityError('INVALID_RANGE');
+    const key = `${from}/${to}`;
+    const existing = cache.get(key);
+    if (!fresh && existing && existing.expires > now()) return existing.data;
+    const requestKey = `${fresh ? 'fresh' : 'cached'}/${key}`;
+    const inFlight = pending.get(requestKey);
+    if (inFlight) return inFlight;
+    if (pending.size >= 64) throw new AvailabilityError('RATE_LIMITED');
+    const generation = (generations.get(key) || 0) + 1;
+    generations.set(key, generation);
+    const promise = load(from, to).then(data => {
+      if (generations.get(key) === generation) {
+        if (cache.size >= 64) { const oldest = cache.keys().next().value!; cache.delete(oldest); generations.delete(oldest); }
+        cache.set(key, { data, expires: now() + config.cacheSeconds * 1000 });
+      }
+      return data;
+    }).catch(error => { if (generations.get(key) === generation) cache.delete(key); throw error; }).finally(() => { pending.delete(requestKey); if (!cache.has(key) && !pending.has(`cached/${key}`) && !pending.has(`fresh/${key}`)) generations.delete(key); });
+    pending.set(requestKey, promise);
+    return promise;
+  }
+
   return {
-    async get(from: string, to: string, fresh = false): Promise<AvailabilityData> {
-      if (!validDate(from) || !validDate(to) || to <= from || nightsBetween(from, to) > 366) throw new AvailabilityError('INVALID_RANGE');
-      const key = `${from}/${to}`;
-      const existing = cache.get(key);
-      if (!fresh && existing && existing.expires > now()) return existing.data;
-      const requestKey = `${fresh ? 'fresh' : 'cached'}/${key}`;
-      const inFlight = pending.get(requestKey);
-      if (inFlight) return inFlight;
-      if (pending.size >= 64) throw new AvailabilityError('RATE_LIMITED');
-      const generation = (generations.get(key) || 0) + 1;
-      generations.set(key, generation);
-      const promise = load(from, to).then(data => {
-        if (generations.get(key) === generation) {
-          if (cache.size >= 64) { const oldest = cache.keys().next().value!; cache.delete(oldest); generations.delete(oldest); }
-          cache.set(key, { data, expires: now() + config.cacheSeconds * 1000 });
-        }
-        return data;
-      }).catch(error => { if (generations.get(key) === generation) cache.delete(key); throw error; }).finally(() => { pending.delete(requestKey); if (!cache.has(key) && !pending.has(`cached/${key}`) && !pending.has(`fresh/${key}`)) generations.delete(key); });
-      pending.set(requestKey, promise);
-      return promise;
+    // Without a villa, every event counts as unavailable.
+    async get(from: string, to: string, fresh = false, villa?: VillaSlug): Promise<AvailabilityData> {
+      const loaded = await loadCached(from, to, fresh);
+      if ('demo' in loaded) return loaded.demo;
+      const events = villa ? eventsForVilla(loaded.events, villa) : loaded.events;
+      return {
+        status: 'ok', unavailable: normalizeEvents(events, config.timeZone, from, to), range: { from, to },
+        timeZone: config.timeZone, minStayNights: config.minimumNights, refreshedAt: loaded.refreshedAt, refreshAfterSeconds: config.refreshSeconds,
+      };
     },
   };
 }

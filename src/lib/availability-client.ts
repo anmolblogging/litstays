@@ -1,8 +1,10 @@
-import { demoAvailability, validDate, type AvailabilityData } from './availability-rules';
+import { demoAvailability, validDate, type AvailabilityData, type VillaSlug } from './availability-rules';
 
 export const availabilityMode = process.env.NEXT_PUBLIC_AVAILABILITY_MODE || 'demo';
 
-export async function fetchAvailability(from: string, to: string, options: { fresh?: boolean; signal?: AbortSignal } = {}): Promise<AvailabilityData> {
+type FetchOptions = { villa: VillaSlug; fresh?: boolean; signal?: AbortSignal };
+
+export async function fetchAvailability(from: string, to: string, options: FetchOptions): Promise<AvailabilityData> {
   if (!validDate(from) || !validDate(to) || to <= from) throw new Error('Please choose a valid date range.');
   if (availabilityMode === 'demo') {
     await new Promise(resolve => setTimeout(resolve, 150));
@@ -12,7 +14,7 @@ export async function fetchAvailability(from: string, to: string, options: { fre
   return fetchLiveAvailability(from, to, options);
 }
 
-export async function fetchLiveAvailability(from: string, to: string, options: { fresh?: boolean; signal?: AbortSignal } = {}): Promise<AvailabilityData> {
+export async function fetchLiveAvailability(from: string, to: string, options: FetchOptions): Promise<AvailabilityData> {
   if (!validDate(from) || !validDate(to) || to <= from) throw new Error('Please choose a valid date range.');
   const controller = new AbortController();
   const abort = () => controller.abort();
@@ -21,7 +23,7 @@ export async function fetchLiveAvailability(from: string, to: string, options: {
   const timeout = setTimeout(abort, 12000);
   try {
     const origin = (process.env.NEXT_PUBLIC_AVAILABILITY_API_URL || '').replace(/\/$/, '');
-    const params = new URLSearchParams({ from, to, ...(options.fresh ? { fresh: '1' } : {}) });
+    const params = new URLSearchParams({ villa: options.villa, from, to, ...(options.fresh ? { fresh: '1' } : {}) });
     const response = await fetch(`${origin}/api/availability?${params}`, { signal: controller.signal, cache: 'no-store', credentials: 'omit' });
     if (!response.ok) throw new Error('Availability is temporarily unavailable. Please try again.');
     const data = await response.json() as AvailabilityData;

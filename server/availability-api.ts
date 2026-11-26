@@ -1,4 +1,5 @@
 import { createAvailabilityService, readAvailabilityConfig, AvailabilityError } from './availability-service';
+import { isVillaSlug } from '../src/lib/availability-rules';
 
 let service: ReturnType<typeof createAvailabilityService> | undefined;
 const requests = new Map<string, { count: number; reset: number }>();
@@ -15,13 +16,15 @@ export async function availabilityResponse(url: URL, clientKey = 'local'): Promi
   try {
     const from = url.searchParams.get('from') || '';
     const to = url.searchParams.get('to') || '';
+    const villa = url.searchParams.get('villa') || '';
+    if (!isVillaSlug(villa)) throw new AvailabilityError('INVALID_RANGE');
     service ??= createAvailabilityService(readAvailabilityConfig(process.env));
-    const data = await service.get(from, to, url.searchParams.get('fresh') === '1');
+    const data = await service.get(from, to, url.searchParams.get('fresh') === '1', villa);
     return Response.json(data, { headers });
   } catch (error) {
     const invalid = error instanceof AvailabilityError && error.code === 'INVALID_RANGE';
     const limited = error instanceof AvailabilityError && error.code === 'RATE_LIMITED';
-    return Response.json({ status: 'unavailable', message: invalid ? 'Please choose a valid date range of up to one year.' : 'We can’t check dates right now. Please try again or contact your host.' }, {
+    return Response.json({ status: 'unavailable', message: invalid ? 'Please choose a villa and a valid date range of up to one year.' : 'We can’t check dates right now. Please try again or contact your host.' }, {
       status: invalid ? 400 : limited ? 429 : 503, headers: { ...headers, ...(invalid ? {} : { 'Retry-After': '60' }) },
     });
   }
