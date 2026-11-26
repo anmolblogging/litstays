@@ -215,3 +215,9 @@ h1 em,h2 em,h3 em { font-weight: 400; display: inline; max-width: none; white-sp
   .intro-points { gap: 11px; }
   .intro-points > li { padding-left: 22px; font-size: 15px; }
 }
+
+/* Mobile intro: centre the arched photo and the pointers (the offset editorial layout looked misaligned). */
+@media (max-width: 800px) {
+  .intro-portrait { justify-self: center; margin-left: auto; margin-right: auto; }
+  .intro-copy { justify-self: center; }
+}

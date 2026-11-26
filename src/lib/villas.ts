@@ -119,7 +119,7 @@ export const villas: Villa[] = [
     cardImage: { src: '/archway/optimized/archway-53-1920.webp', alt: 'Villa Archway’s arched facade and garden wall lit up under an evening sky' },
     heroImage: { src: '/archway/optimized/archway-54-1920.webp', alt: 'Villa Archway’s sunlit arched facade and balconies beside a tall palm', width: 1920, height: 1288, position: 'center top', mobilePosition: '48% top', responsive: true, foregroundMask: '/images/archway-hero-mask.svg', sky: '#509bd0' },
     photos: archwayPhotos,
-    refundableDeposit: 8000,
+    refundableDeposit: 10000,
     brochure: { href: '/Archway.pdf', filename: 'Archway.pdf', cover: '/brochures/archway-cover.webp', pages: 20, previewBase: '/brochures/archway' },
     food: villaDining,
     amenities: [
