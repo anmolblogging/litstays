@@ -18,7 +18,8 @@ function shortDate(date: string) { return date ? new Intl.DateTimeFormat('en-GB'
 function monthCells(month: string) {
   const date = new Date(`${month}-01T12:00:00Z`);
   const offset = (date.getUTCDay() + 6) % 7;
-  const length = new Date(date.getUTCFullYear(), date.getUTCMonth() + 1, 0).getUTCDate();
+  // Date.UTC keeps the month length independent of the visitor's timezone.
+  const length = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0)).getUTCDate();
   return Array.from({ length: Math.ceil((offset + length) / 7) * 7 }, (_, i) => i < offset || i >= offset + length ? null : `${month}-${String(i - offset + 1).padStart(2, '0')}`);
 }
 
